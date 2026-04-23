@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-const TARGET = `${BASE}/he/family/`;
+const TARGET = `${BASE}/he/lifestyle/`;
 
 export default function RootRedirect() {
   useEffect(() => {

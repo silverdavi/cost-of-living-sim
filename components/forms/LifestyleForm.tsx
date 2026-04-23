@@ -30,6 +30,7 @@ import { InkHeart } from "@/components/illustrations/InkHeart";
 import { InkWallet } from "@/components/illustrations/InkWallet";
 import { InkCar } from "@/components/illustrations/InkCar";
 import { InkFamily } from "@/components/illustrations/InkFamily";
+import { InkCart } from "@/components/illustrations/InkCart";
 
 const JOBS = [
   "local_newspaper",
@@ -60,6 +61,8 @@ export function LifestyleForm() {
   const patchTransport = useSimStore((s) => s.patchTransport);
   const patchSchools = useSimStore((s) => s.patchSchools);
   const patchHealth = useSimStore((s) => s.patchHealth);
+  const patchFamily = useSimStore((s) => s.patchFamily);
+  const family = profile.family;
 
   const cities = useMemo(() => getAllCities(), []);
   const citySchools = useMemo(
@@ -580,11 +583,68 @@ export function LifestyleForm() {
           )}
         </FormCard>
 
-        {/* KID A SCHOOL */}
+        {/* FOOD MULTIPLIER */}
         <FormCard
-          title={t("lifestyle.schools.kidA.heading")}
+          title={t("family.food.title")}
+          subtitle={t("family.food.subtitle")}
+          illustration={<InkCart className="h-16 w-16" />}
+        >
+          <FieldRow
+            label={t("family.food.multiplier")}
+            hint={t("family.food.multiplierHint")}
+            valueBadge={<div className="chip">×{family.foodMultiplier.toFixed(2)}</div>}
+            caption={t("family.food.caption", {
+              cityMult: city.food.kosherMultiplier.toFixed(2),
+            })}
+          >
+            <div className="flex items-center gap-3">
+              <Slider
+                value={[family.foodMultiplier]}
+                min={0.8}
+                max={2.0}
+                step={0.05}
+                onValueChange={(v) => patchFamily({ foodMultiplier: Number(v[0].toFixed(2)) })}
+                className="flex-1"
+              />
+              <Button
+                size="sm"
+                variant="subtle"
+                title={t("family.food.resetCity")}
+                onClick={() => patchFamily({ foodMultiplier: city.food.kosherMultiplier })}
+              >
+                ×{city.food.kosherMultiplier.toFixed(2)}
+              </Button>
+              <Button
+                size="sm"
+                variant="subtle"
+                title={t("family.food.resetPlain")}
+                onClick={() => patchFamily({ foodMultiplier: 1.0 })}
+              >
+                ×1.00
+              </Button>
+            </div>
+          </FieldRow>
+        </FormCard>
+
+        {/* KID A (age + school) */}
+        <FormCard
+          title={`${t("family.kids.kidA")} (${t("family.kids.olderTag")})`}
+          subtitle={t("lifestyle.schools.kidA.heading")}
           illustration={<InkSchool className="h-16 w-16" />}
         >
+          <FieldRow
+            label={t("family.kids.age")}
+            hint={t("family.kids.ageHint")}
+            valueBadge={<div className="chip">{family.kidAAge}</div>}
+          >
+            <Slider
+              value={[family.kidAAge]}
+              min={5}
+              max={10}
+              step={1}
+              onValueChange={(v) => patchFamily({ kidAAge: v[0] })}
+            />
+          </FieldRow>
           <FieldRow
             label={t("lifestyle.schools.kidA.school")}
             hint={t("lifestyle.schools.kidA.schoolHint")}
@@ -623,11 +683,46 @@ export function LifestyleForm() {
           </FieldRow>
         </FormCard>
 
-        {/* KID B SCHOOL */}
+        {/* KID B (age + IEP/waiver + placement) */}
         <FormCard
-          title={t("lifestyle.schools.kidB.heading")}
+          title={`${t("family.kids.kidB")} (${t("family.kids.youngerTag")})`}
+          subtitle={t("lifestyle.schools.kidB.heading")}
           illustration={<InkSchool className="h-16 w-16" />}
         >
+          <FieldRow
+            label={t("family.kids.age")}
+            hint={t("family.kids.ageHint")}
+            valueBadge={<div className="chip">{family.kidBAge}</div>}
+          >
+            <Slider
+              value={[family.kidBAge]}
+              min={5}
+              max={10}
+              step={1}
+              onValueChange={(v) => patchFamily({ kidBAge: v[0] })}
+            />
+          </FieldRow>
+          <FieldRow
+            label={t("family.kids.kidBHasIEP")}
+            hint={t("family.kids.iepHint")}
+          >
+            <Switch
+              checked={family.kidBHasIEP}
+              onCheckedChange={(v) => patchFamily({ kidBHasIEP: v })}
+              aria-label={t("family.kids.kidBHasIEP")}
+            />
+          </FieldRow>
+          <FieldRow
+            label={t("family.kids.kidBHasWaiver")}
+            hint={t("family.kids.waiverHint")}
+          >
+            <Switch
+              checked={family.kidBHasMedicaidWaiver}
+              onCheckedChange={(v) => patchFamily({ kidBHasMedicaidWaiver: v })}
+              aria-label={t("family.kids.kidBHasWaiver")}
+            />
+          </FieldRow>
+          <div className="divider" />
           <FieldRow
             label={t("lifestyle.schools.kidB.placement")}
             hint={t("lifestyle.schools.kidB.placementHint")}

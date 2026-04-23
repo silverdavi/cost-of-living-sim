@@ -13,8 +13,7 @@ import { LiveBottomLine } from "@/components/results/LiveBottomLine";
 export function Header() {
   const t = useTranslations("app");
   const pathname = usePathname();
-  const showBottomLine =
-    /\/(family|lifestyle)\/?$/.test(pathname ?? "");
+  const showBottomLine = /\/lifestyle\/?$/.test(pathname ?? "");
 
   return (
     <header className="sticky top-0 z-30 border-b border-line/60 bg-bg/80 backdrop-blur">

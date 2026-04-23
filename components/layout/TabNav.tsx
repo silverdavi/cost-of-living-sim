@@ -6,8 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 const tabs = [
-  { href: "family", key: "family" },
-  { href: "lifestyle", key: "lifestyle" },
+  { href: "lifestyle", key: "setup" },
   { href: "results", key: "results" },
 ] as const;
 

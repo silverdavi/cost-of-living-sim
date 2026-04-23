@@ -4,8 +4,7 @@
     "tagline": "A year in Denver or Providence — ballpark numbers, in your currency, in your language."
   },
   "nav": {
-    "family": "Family",
-    "lifestyle": "Lifestyle",
+    "setup": "Setup",
     "results": "Results",
     "assumptions": "Assumptions"
   },
@@ -73,8 +72,8 @@
       }
     },
   "lifestyle": {
-    "title": "Lifestyle & money",
-    "subtitle": "Where they live, what they earn, and the big monthly line items.",
+    "title": "Setup",
+    "subtitle": "Who lives here, where they live, what they earn, and the big monthly line items.",
     "city": {
       "title": "City",
       "label": "Where they live",
