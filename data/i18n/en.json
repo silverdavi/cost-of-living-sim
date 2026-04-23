@@ -216,6 +216,14 @@
       "yellow": "Tight — positive, but no cushion.",
       "red": "Deficit — expenses exceed income this year."
     },
+    "liveLine": {
+      "title": "Bottom line",
+      "netYear": "Net / yr",
+      "perMonth": "Per month",
+      "expenses": "Expenses",
+      "assistance": "Assistance",
+      "seeDetails": "See full results"
+    },
     "master": {
       "title": "The master equation",
       "formula": "Net = Gross income + Assistance − Taxes − Expenses",

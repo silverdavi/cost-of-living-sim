@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { LangToggle } from "@/components/controls/LangToggle";
 import { CurrencyToggle } from "@/components/controls/CurrencyToggle";
@@ -7,9 +8,14 @@ import { TabNav } from "./TabNav";
 import { AssumptionsDrawer } from "./AssumptionsDrawer";
 import { ProfileMenu } from "./ProfileMenu";
 import { Logo } from "./Logo";
+import { LiveBottomLine } from "@/components/results/LiveBottomLine";
 
 export function Header() {
   const t = useTranslations("app");
+  const pathname = usePathname();
+  const showBottomLine =
+    /\/(family|lifestyle)\/?$/.test(pathname ?? "");
+
   return (
     <header className="sticky top-0 z-30 border-b border-line/60 bg-bg/80 backdrop-blur">
       <div className="mx-auto max-w-6xl px-6 py-4 flex items-center gap-4 flex-wrap">
@@ -28,6 +34,11 @@ export function Header() {
           <AssumptionsDrawer />
         </div>
       </div>
+      {showBottomLine && (
+        <div className="mx-auto max-w-6xl px-6 pb-3">
+          <LiveBottomLine />
+        </div>
+      )}
     </header>
   );
 }
