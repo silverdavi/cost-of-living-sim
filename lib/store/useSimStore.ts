@@ -13,8 +13,7 @@ const defaultProfile: FamilyProfile = {
     kidBAge: 6,
     kidBHasIEP: true,
     kidBHasMedicaidWaiver: false,
-    observance: "traditional",
-    keepsKosher: true,
+    foodMultiplier: 1.3,
   },
   lifestyle: {
     city: "denver_co",

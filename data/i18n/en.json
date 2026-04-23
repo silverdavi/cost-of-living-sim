@@ -62,19 +62,16 @@
       "kidBHasWaiver": "Younger child has a Medicaid disability waiver",
       "waiverHint": "Katie Beckett / TEFRA / HCBS: Medicaid granted on disability alone, independent of parent income."
     },
-    "observance": {
-      "title": "Observance",
-      "level": "Observance level",
-      "levelHint": "Affects kosher defaults and a few lifestyle assumptions.",
-      "kosher": "Keeps kosher at home",
-      "kosherHint": "Adds a multiplier to the monthly grocery total.",
-      "options": {
-        "secular": "Secular",
-        "traditional": "Traditional",
-        "shomerShabbat": "Shomer Shabbat"
+      "food": {
+        "title": "Food cost multiplier",
+        "subtitle": "One knob to adjust the monthly grocery total — kosher, dietary needs, or just how expensive your shopping is.",
+        "multiplier": "Dietary multiplier on food",
+        "multiplierHint": "Applied directly to the USDA moderate food plan for a family of 4. 1.00 = plain baseline, 1.30 ≈ typical kosher premium, higher for specialty diets.",
+        "caption": "City kosher default ≈ ×{cityMult}. Use ×1.00 for a plain USDA baseline.",
+        "resetCity": "Use city kosher default",
+        "resetPlain": "Back to ×1.00"
       }
-    }
-  },
+    },
   "lifestyle": {
     "title": "Lifestyle & money",
     "subtitle": "Where they live, what they earn, and the big monthly line items.",

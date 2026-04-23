@@ -125,12 +125,14 @@ export function ExpenseBreakdownList({ agg }: { agg: Aggregate }) {
         desc: t("results.explain.foodDesc"),
         lines: [
           (() => {
-            const monthly = Math.round(agg.foodYearly / 12 / (profile.family.keepsKosher ? 1.3 : 1));
+            const mult = profile.family.foodMultiplier;
+            const baseMonthly = Math.round(agg.foodYearly / 12 / mult);
             return t("results.explain.foodFormula", {
-              monthly: money(monthly),
-              kosher: profile.family.keepsKosher
-                ? t("results.explain.foodKosher", { mult: "1.30" })
-                : "",
+              monthly: money(baseMonthly),
+              kosher:
+                mult !== 1
+                  ? t("results.explain.foodKosher", { mult: mult.toFixed(2) })
+                  : "",
               total: money(agg.foodYearly),
             });
           })(),

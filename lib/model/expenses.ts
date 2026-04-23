@@ -43,11 +43,9 @@ export function computeHousing(city: CityData, profile: FamilyProfile): HousingC
   };
 }
 
-export function computeFoodYearly(city: CityData, keepsKosher: boolean, kosherMultiplierOverride: number | null): number {
+export function computeFoodYearly(city: CityData, foodMultiplier: number): number {
   const base = city.food.usdaModerateMonthlyFamily4 * 12;
-  if (!keepsKosher) return base;
-  const mult = kosherMultiplierOverride ?? city.food.kosherMultiplier;
-  return Math.round(base * mult);
+  return Math.round(base * foodMultiplier);
 }
 
 export type CarType =

@@ -6,21 +6,22 @@ import { FormCard } from "./FormCard";
 import { FieldRow } from "./FieldRow";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { InkFamily } from "@/components/illustrations/InkFamily";
 import { InkCart } from "@/components/illustrations/InkCart";
+import { getCity } from "@/lib/data/loaders";
 
 export function FamilyForm() {
   const t = useTranslations();
   const family = useSimStore((s) => s.profile.family);
+  const citySlug = useSimStore((s) => s.profile.lifestyle.city);
   const patch = useSimStore((s) => s.patchFamily);
+
+  const cityKosherMult = (() => {
+    try { return getCity(citySlug).food.kosherMultiplier; }
+    catch { return 1.3; }
+  })();
 
   return (
     <TooltipProvider delayDuration={150}>
@@ -91,35 +92,46 @@ export function FamilyForm() {
         </FormCard>
 
         <FormCard
-          title={t("family.observance.title")}
+          title={t("family.food.title")}
+          subtitle={t("family.food.subtitle")}
           illustration={<InkCart className="h-16 w-16" />}
           className="md:col-span-2"
         >
-          <div className="grid gap-4 md:grid-cols-2">
-            <FieldRow label={t("family.observance.level")}>
-              <Select
-                value={family.observance}
-                onValueChange={(v) => patch({ observance: v as typeof family.observance })}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="secular">{t("family.observance.options.secular")}</SelectItem>
-                  <SelectItem value="traditional">{t("family.observance.options.traditional")}</SelectItem>
-                  <SelectItem value="shomerShabbat">{t("family.observance.options.shomerShabbat")}</SelectItem>
-                </SelectContent>
-              </Select>
-            </FieldRow>
-
-            <FieldRow label={t("family.observance.kosher")} hint={t("family.observance.kosherHint")}>
-              <Switch
-                checked={family.keepsKosher}
-                onCheckedChange={(v) => patch({ keepsKosher: v })}
-                aria-label={t("family.observance.kosher")}
+          <FieldRow
+            label={t("family.food.multiplier")}
+            hint={t("family.food.multiplierHint")}
+            valueBadge={<div className="chip">×{family.foodMultiplier.toFixed(2)}</div>}
+            caption={t("family.food.caption", {
+              cityMult: cityKosherMult.toFixed(2),
+            })}
+          >
+            <div className="flex items-center gap-3">
+              <Slider
+                value={[family.foodMultiplier]}
+                min={0.8}
+                max={2.0}
+                step={0.05}
+                onValueChange={(v) => patch({ foodMultiplier: Number(v[0].toFixed(2)) })}
+                className="flex-1"
               />
-            </FieldRow>
-          </div>
+              <Button
+                size="sm"
+                variant="subtle"
+                title={t("family.food.resetCity")}
+                onClick={() => patch({ foodMultiplier: cityKosherMult })}
+              >
+                ×{cityKosherMult.toFixed(2)}
+              </Button>
+              <Button
+                size="sm"
+                variant="subtle"
+                title={t("family.food.resetPlain")}
+                onClick={() => patch({ foodMultiplier: 1.0 })}
+              >
+                ×1.00
+              </Button>
+            </div>
+          </FieldRow>
         </FormCard>
       </div>
     </TooltipProvider>

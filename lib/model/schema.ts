@@ -114,8 +114,7 @@ export const familyProfileSchema = z.object({
     kidBAge: z.number().min(5).max(10),
     kidBHasIEP: z.boolean(),
     kidBHasMedicaidWaiver: z.boolean(),
-    observance: z.enum(["secular", "traditional", "shomerShabbat"]),
-    keepsKosher: z.boolean(),
+    foodMultiplier: z.number().min(0.8).max(2.5).default(1.3),
   }),
   lifestyle: z.object({
     city: z.string(),
