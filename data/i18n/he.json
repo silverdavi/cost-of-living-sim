@@ -1,0 +1,300 @@
+{
+  "app": {
+    "title": "סימולטור יוקר מחיה",
+    "tagline": "שנה אחת בדנבר או בפרובידנס — מספרי אומדן, במטבע שלך, בשפה שלך."
+  },
+  "nav": {
+    "family": "משפחה",
+    "lifestyle": "אורח חיים",
+    "results": "תוצאות",
+    "assumptions": "הנחות"
+  },
+  "actions": {
+    "export": "ייצוא פרופיל",
+    "import": "ייבוא פרופיל",
+    "reset": "איפוס",
+    "close": "סגירה",
+    "save": "שמירה",
+    "applySuggested": "השתמש בהצעה",
+    "showMath": "הצג את החישוב",
+    "hideMath": "הסתר את החישוב"
+  },
+  "currency": {
+    "usd": "דולר",
+    "ils": "שקל",
+    "rateLabel": "1 דולר = {rate} שקל",
+    "rateSource": "מקור: {source}",
+    "auto": "אוטומטי (חי)",
+    "manual": "ידני",
+    "asOf": "נכון לתאריך {date}",
+    "edit": "עריכת שער"
+  },
+  "locale": {
+    "hebrew": "עברית",
+    "english": "אנגלית"
+  },
+  "units": {
+    "perMonth": "/ חודש",
+    "perYear": "/ שנה",
+    "yearlyEquivalent": "× 12 = {yearly} / שנה"
+  },
+  "family": {
+    "title": "המשפחה",
+    "subtitle": "מי גר במשק הבית.",
+    "adults": {
+      "title": "מבוגרים",
+      "parentA": "הורה א׳",
+      "parentB": "הורה ב׳"
+    },
+    "kids": {
+      "title": "ילדים",
+      "kidA": "הילד/ה הבכור/ה",
+      "kidB": "הילד/ה הצעיר/ה",
+      "olderTag": "ילד א׳",
+      "youngerTag": "ילד ב׳",
+      "kidASubtitle": "הרשום/ה לבית ספר יהודי יומי.",
+      "kidBSubtitle": "עם קשיי למידה או קשיים אישיים.",
+      "kidAFootnote": "בית הספר, אחוז המלגה ומסגרת צהרון נקבעים בלשונית אורח החיים.",
+      "age": "גיל",
+      "ageHint": "בין 5 ל-10.",
+      "kidBHasIEP": "לילד/ה הצעיר/ה יש תכנית חינוך אישית (IEP)",
+      "iepHint": "IEP פותחת שירותי טיפול והתאמות במסגרת בית הספר.",
+      "kidBHasWaiver": "לילד/ה הצעיר/ה יש פטור מדיקאיד על רקע נכות",
+      "waiverHint": "Katie Beckett / TEFRA / HCBS: דיקאיד על בסיס הנכות עצמה, ללא תלות בהכנסת ההורים."
+    },
+    "observance": {
+      "title": "שמירת מצוות",
+      "level": "רמת שמירת מצוות",
+      "levelHint": "משפיע על ברירות המחדל של כשרות וכמה הנחות סגנון חיים.",
+      "kosher": "שמירת כשרות בבית",
+      "kosherHint": "מוסיף מכפיל לסל המזון החודשי.",
+      "options": {
+        "secular": "חילוני",
+        "traditional": "מסורתי",
+        "shomerShabbat": "שומר שבת"
+      }
+    }
+  },
+  "lifestyle": {
+    "title": "אורח חיים וכסף",
+    "subtitle": "איפה גרים, מה מרוויחים, ומה סעיפי ההוצאה הגדולים.",
+    "city": {
+      "title": "עיר",
+      "label": "מקום מגורים",
+      "hint": "משפיע על שכר דירה, חשבונות, מס מדינה, ביטוח רכב, סל ACA ומכפיל הכשרות.",
+      "snapshot": "תמונת מצב של העיר",
+      "medianRent": "שכר דירה חציוני ({br} חדרים)",
+      "acaBenchmark": "סל ACA (משפחתי)",
+      "carInsurance": "ביטוח רכב",
+      "kosherMult": "מכפיל כשרות"
+    },
+    "income": {
+      "title": "הכנסה",
+      "parentATitle": "הורה א׳",
+      "parentBTitle": "הורה ב׳",
+      "parentA": {
+        "employed": "הורה א׳ עובד",
+        "employedHint": "כבוי → אין משכורת להורה א׳ השנה.",
+        "job": "סוג עבודה",
+        "jobHint": "משפיע רק על הצעות טווח שכר, לא על חישוב המס.",
+        "salary": "שכר ברוטו שנתי",
+        "salaryHint": "לפני מס. גררו כדי לדמות העלאה, חל״ת או שינוי קריירה.",
+        "employerHealth": "המעסיק מציע ביטוח בריאות משפחתי",
+        "employerHealthHint": "מופעל → המשפחה יכולה לקחת את תכנית המעסיק במקום ה-ACA.",
+        "employerPremium": "השתתפות העובד בפרמיה המשפחתית (שנתי)",
+        "employerPremiumHint": "סה״כ הניכוי מהשכר עבור השנה."
+      },
+      "parentB": {
+        "mode": "מצב הורה ב׳",
+        "modeHint": "קובע אילו קצבאות ומגבלות עבודה חלות.",
+        "modes": {
+          "employed": "עובד/ת",
+          "ssdi": "מקבל/ת קצבת נכות SSDI",
+          "ssi": "מקבל/ת קצבת SSI (נכות + הכנסה נמוכה)",
+          "none": "לא עובד/ת, בלי קצבה"
+        },
+        "salary": "שכר ברוטו שנתי",
+        "salaryHint": "עבור SSDI — כל הכנסה נספרת כלפי מבחן SGA למטה.",
+        "ssdiMonthly": "קצבת SSDI חודשית",
+        "ssdiMonthlyHint": "תלויה בהיסטוריית עבודה — ממוצע משפחתי 2025 כ־$1,580.",
+        "ssiMonthly": "קצבת SSI חודשית",
+        "ssiMonthlyHint": "מקסימום פדרלי 2025: $967/חודש ליחיד — מופחת לפי הכנסה אחרת.",
+        "sgaWarn": "הכנסה מעל ${sga} לחודש עלולה להשעות את SSDI (מבחן הכנסה פעילה)."
+      }
+    },
+    "housing": {
+      "title": "דיור",
+      "bedrooms": "חדרי שינה",
+      "bedroomsHint": "קובע את ברירת המחדל לשכר הדירה על פי חציון העיר.",
+      "rent": "שכר דירה חודשי",
+      "rentHint": "ברירת המחדל היא החציון בעיר לגודל הדירה, בתוספת ~15% לשכונות הליכתיות/יהודיות.",
+      "resetDefault": "חזרה לברירת המחדל של העיר",
+      "utilitiesLabel": "חשבונות (אומדן)"
+    },
+    "transport": {
+      "title": "תחבורה",
+      "hasCar": "בעלות על רכב",
+      "hasCarHint": "מפעיל עלויות ביטוח, דלק ותחזוקה לרכב אחד (ממוצע עירוני).",
+      "usesTransit": "משתמשים בתחבורה ציבורית באופן קבוע",
+      "usesTransitHint": "מוסיף חוזה חודשי אחד למשק הבית.",
+      "noCarNote": "אין רכב — רק תחבורה ציבורית והליכה."
+    },
+    "schools": {
+      "title": "בתי ספר",
+      "kidA": {
+        "heading": "הבכור/ה — בית ספר יהודי יומי",
+        "school": "בית ספר",
+        "schoolHint": "מחיר המחירון משתנה לפי שכבת גיל; אחוז המלגה מופחת ממנו.",
+        "grant": "מלגת סיוע כספי",
+        "grantHint": "הערכה על בסיס הכנסה; בדרך כלל מלגות 0–80% בטווח הזה."
+      },
+      "kidB": {
+        "heading": "הצעיר/ה",
+        "placement": "מסגרת לימודים",
+        "placementHint": "מסגרות ציבוריות ללא שכר לימוד; פרטי במימון המחוז דורש מאבק על IEP.",
+        "placements": {
+          "publicIEP": "בית ספר ציבורי עם IEP",
+          "publicSpecial": "תכנית חינוך מיוחד ציבורית",
+          "privateDistrictFunded": "חינוך מיוחד פרטי (במימון מחוז)",
+          "privateSelfPay": "חינוך מיוחד פרטי (במימון עצמי)",
+          "jewishDayWithSupport": "בית ספר יהודי + סיוע פרטי"
+        },
+        "therapy": "טיפולים פרטיים חודשיים מהכיס",
+        "therapyHint": "אחרי ביטוח; פערי OT/דיבור/ABA שההורים מכסים.",
+        "tuition": "שכר לימוד שנתי מהכיס",
+        "tuitionHint": "חל רק אם המסגרת היא מימון עצמי."
+      }
+    },
+    "health": {
+      "title": "ביטוח בריאות",
+      "strategy": "אסטרטגיית כיסוי",
+      "strategyHint": "הדרך שבה המשפחה משיגה כיסוי רפואי.",
+      "strategies": {
+        "employerFamily": "תכנית משפחתית של המעסיק",
+        "marketplace": "שוק ה-ACA (כל המשפחה)",
+        "medicaid": "מדיקאיד / CHIP",
+        "mixed": "משולב (מעסיק + ACA)"
+      },
+      "usage": "שימוש רפואי צפוי",
+      "usageHint": "אומדן הוצאה מהכיס: נמוך ≈ $1,200, טיפוסי ≈ $3,500, גבוה ≈ $8,000.",
+      "usages": {
+        "low": "נמוך",
+        "typical": "משפחה טיפוסית",
+        "high": "גבוה (צרכים מיוחדים)"
+      },
+      "summary": "תקציר כיסוי",
+      "onMedicaid": "במדיקאיד",
+      "kidsOnChip": "ילדים ב-CHIP",
+      "fplPct": "% מקו העוני",
+      "netPremium": "פרמיה נטו / שנה",
+      "oopEstimate": "מהכיס / שנה"
+    }
+  },
+  "results": {
+    "title": "השנה במספרים",
+    "subtitle": "כל סליידר מתנקז לכאן.",
+    "feasibility": {
+      "green": "בר־קיימא — עודף של יותר מחודשיים הוצאות.",
+      "yellow": "על הקצה — חיובי אך בלי רזרבה.",
+      "red": "גירעון — ההוצאות השנה עולות על ההכנסות."
+    },
+    "master": {
+      "title": "המשוואה הראשית",
+      "formula": "נטו = הכנסה ברוטו + קצבאות − מסים − הוצאות",
+      "gross": "הכנסה ברוטו",
+      "assistance": "קצבאות",
+      "taxes": "מסים",
+      "expenses": "הוצאות",
+      "net": "מזומן נטו"
+    },
+    "headline": {
+      "grossIncome": "הכנסה ברוטו",
+      "netCash": "מזומן נטו לשנה",
+      "monthly": "תזרים חודשי",
+      "effectiveTax": "מס אפקטיבי + שיעור הדעיכה של קצבאות"
+    },
+    "breakdown": {
+      "title": "לאן הכסף הולך",
+      "income": "הכנסה",
+      "taxes": "מסים",
+      "housing": "דיור",
+      "schools": "בתי ספר",
+      "health": "בריאות",
+      "food": "מזון",
+      "transport": "תחבורה",
+      "other": "שונות",
+      "assistance": "קצבאות וזיכויים",
+      "surplus": "עודף",
+      "deficit": "גירעון"
+    },
+    "explain": {
+      "heading": "איך כל מספר נבנה",
+      "subtitle": "הקש על שורה כדי לראות את הנוסחה החיה.",
+      "housingDesc": "שכר דירה × 12 + חשבונות + ביטוח דיירים.",
+      "housingFormula": "שכר דירה {rent}/חודש × 12 + חשבונות {utilities} + ביטוח דיירים {insurance} = {total}",
+      "taxesDesc": "פדרלי + FICA + מדינה + מקומי, פחות זיכויי CTC/EITC ניתנים להחזר.",
+      "taxesFormula": "פדרלי {federal} + FICA {fica} + מדינה {state} + מקומי {local}",
+      "taxesCreditsNote": "זיכויים מוחזרים: CTC {ctc} + EITC {eitc} + EITC מדינתי {stateEitc} — מתווספים בחזרה תחת קצבאות.",
+      "healthDesc": "סל ACA פחות סבסוד PTC, פלוס הוצאות צפויות מהכיס.",
+      "healthFormulaAca": "סל {benchmark} − PTC {ptc} + מהכיס {oop} = {total}",
+      "healthFormulaMedicaid": "במדיקאיד — פרמיה $0. מהכיס {oop}.",
+      "healthFormulaEmployer": "פרמיית מעסיק {premium} + מהכיס {oop} = {total}",
+      "schoolsDesc": "שכר לימוד של הבכור/ה פחות מלגה + אגרות + צהרון; הצעיר/ה שכ״ל + טיפולים.",
+      "kidALine": "ילד א׳: מחיר {sticker} × (1 − {grantPct}%) + אגרות {fees} + צהרון {aftercare} = {total}",
+      "kidBLine": "ילד ב׳: שכ״ל {tuition} + טיפולים {therapy}/חודש × 12 = {total}",
+      "foodDesc": "תכנית USDA ממוצעת × מכפיל כשרות (אם מופעל).",
+      "foodFormula": "USDA {monthly}/חודש × 12{kosher} = {total}",
+      "foodKosher": " × כשרות {mult}",
+      "transportDesc": "עלויות רכב (אם יש) פלוס חוזה תחבורה אופציונלי.",
+      "transportCar": "ביטוח {insurance} + דלק {gas} + תחזוקה {maintenance} = {car}",
+      "transportNoCar": "אין רכב",
+      "transportTransit": "חוזה תחבורה {transit}",
+      "otherDesc": "טלפון, ביגוד, חוגים, בית כנסת, סטרימינג.",
+      "otherFormula": "טלפון 780 + ביגוד 1,500 + חוגים 1,440 + בית כנסת 1,500 + סטרימינג 420 = {total}",
+      "assistanceDesc": "כסף שזורם בחזרה למשפחה.",
+      "assistanceFormula": "SNAP {snap} + זיכויים מוחזרים {credits} + EITC מדינה {stateEitc} = {total}",
+      "snapIneligible": "לא זכאים ל-SNAP ברמת ההכנסה הזו."
+    },
+    "cliff": {
+      "title": "תרשים הצוק",
+      "subtitle": "נטו בכל רמת הכנסה מעבודה — שימו לב לצניחות כשקצבאות נשחקות.",
+      "xAxis": "הכנסה מעבודה (שנתי)",
+      "yAxis": "מזומן נטו אחרי מסים וקצבאות",
+      "marker": "המצב שלך"
+    },
+    "compare": {
+      "title": "השוואה זו מול זו",
+      "subtitle": "אותה משפחה, בעיר השנייה.",
+      "delta": "הפרש"
+    }
+  },
+  "assumptions": {
+    "title": "הנחות",
+    "subtitle": "פתחו כל שורה לקרוא מה היא משפיעה.",
+    "taxYear": "שנת מס",
+    "acaExtended": "הטבות ACA מורחבות (חוקי IRA)",
+    "acaExtendedHint": "כבוי → חלים כללי קדם-IRA: צוק 400% FPL חוזר ושיעורי ההשתתפות עולים.",
+    "kosherMultiplier": "מכפיל מזון כשר",
+    "kosherMultiplierHint": "מוחל על תכנית המזון של ה-USDA כאשר 'שמירת כשרות' מופעלת.",
+    "rentOverride": "עקיפת שכר דירה ברירת מחדל",
+    "fx": "שער מטבע",
+    "reserve": "חודשי רזרבה לדירוג 'ירוק'",
+    "reserveHint": "העודף חייב לכסות כך וכך חודשי הוצאות כדי להיחשב בר־קיימא."
+  },
+  "cities": {
+    "denver_co": "דנבר, קולורדו",
+    "providence_ri": "פרובידנס, רוד איילנד"
+  },
+  "jobs": {
+    "local_newspaper": "עיתונאי/ת מקומי/ת",
+    "nonprofit_communications": "תקשורת במלכ״ר",
+    "community_org": "ארגון קהילתי",
+    "freelance_journalism": "עיתונאות עצמאית"
+  },
+  "schools": {
+    "denver_jds": "בית ספר יהודי יומי — דנבר",
+    "rmha": "הרצל / האקדמיה העברית של הרי הרוקי",
+    "jcdsri": "בית הספר היהודי הקהילתי של ר״א",
+    "phds": "בית הספר היהודי היומי של פרובידנס"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schools": [
+    {
+      "slug": "denver_jds",
+      "labelKey": "schools.denver_jds",
+      "city": "denver_co",
+      "stickerByGrade": {
+        "K": 22500, "1": 23500, "2": 24500, "3": 25500, "4": 27000, "5": 28000, "6": 29000
+      },
+      "feesExtraYearly": 1500,
+      "aftercareMonthly": 350,
+      "typicalGrantBands": [
+        { "magiMax": 60000,  "grantPctMin": 0.60, "grantPctMax": 0.80 },
+        { "magiMax": 90000,  "grantPctMin": 0.40, "grantPctMax": 0.60 },
+        { "magiMax": 130000, "grantPctMin": 0.20, "grantPctMax": 0.40 },
+        { "magiMax": 180000, "grantPctMin": 0.00, "grantPctMax": 0.20 },
+        { "magiMax": null,   "grantPctMin": 0.00, "grantPctMax": 0.00 }
+      ]
+    },
+    {
+      "slug": "rmha",
+      "labelKey": "schools.rmha",
+      "city": "denver_co",
+      "stickerByGrade": {
+        "K": 18000, "1": 19000, "2": 20000, "3": 20500, "4": 21500, "5": 22000, "6": 22500
+      },
+      "feesExtraYearly": 1200,
+      "aftercareMonthly": 300,
+      "typicalGrantBands": [
+        { "magiMax": 60000,  "grantPctMin": 0.55, "grantPctMax": 0.75 },
+        { "magiMax": 90000,  "grantPctMin": 0.35, "grantPctMax": 0.55 },
+        { "magiMax": 130000, "grantPctMin": 0.15, "grantPctMax": 0.35 },
+        { "magiMax": 180000, "grantPctMin": 0.00, "grantPctMax": 0.15 },
+        { "magiMax": null,   "grantPctMin": 0.00, "grantPctMax": 0.00 }
+      ]
+    },
+    {
+      "slug": "jcdsri",
+      "labelKey": "schools.jcdsri",
+      "city": "providence_ri",
+      "stickerByGrade": {
+        "K": 17500, "1": 18500, "2": 19500, "3": 20500, "4": 21500, "5": 22000, "6": 22500
+      },
+      "feesExtraYearly": 1300,
+      "aftercareMonthly": 320,
+      "typicalGrantBands": [
+        { "magiMax": 60000,  "grantPctMin": 0.60, "grantPctMax": 0.80 },
+        { "magiMax": 90000,  "grantPctMin": 0.40, "grantPctMax": 0.60 },
+        { "magiMax": 130000, "grantPctMin": 0.20, "grantPctMax": 0.40 },
+        { "magiMax": 180000, "grantPctMin": 0.00, "grantPctMax": 0.20 },
+        { "magiMax": null,   "grantPctMin": 0.00, "grantPctMax": 0.00 }
+      ]
+    },
+    {
+      "slug": "phds",
+      "labelKey": "schools.phds",
+      "city": "providence_ri",
+      "stickerByGrade": {
+        "K": 15500, "1": 16000, "2": 16500, "3": 17000, "4": 17500, "5": 18000, "6": 18500
+      },
+      "feesExtraYearly": 1000,
+      "aftercareMonthly": 280,
+      "typicalGrantBands": [
+        { "magiMax": 60000,  "grantPctMin": 0.55, "grantPctMax": 0.75 },
+        { "magiMax": 90000,  "grantPctMin": 0.35, "grantPctMax": 0.55 },
+        { "magiMax": 130000, "grantPctMin": 0.15, "grantPctMax": 0.35 },
+        { "magiMax": 180000, "grantPctMin": 0.00, "grantPctMax": 0.15 },
+        { "magiMax": null,   "grantPctMin": 0.00, "grantPctMax": 0.00 }
+      ]
+    }
+  ]
+}

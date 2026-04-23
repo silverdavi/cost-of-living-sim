@@ -1,0 +1,300 @@
+{
+  "app": {
+    "title": "Cost of Living Simulator",
+    "tagline": "A year in Denver or Providence — ballpark numbers, in your currency, in your language."
+  },
+  "nav": {
+    "family": "Family",
+    "lifestyle": "Lifestyle",
+    "results": "Results",
+    "assumptions": "Assumptions"
+  },
+  "actions": {
+    "export": "Export profile",
+    "import": "Import profile",
+    "reset": "Reset",
+    "close": "Close",
+    "save": "Save",
+    "applySuggested": "Use suggested",
+    "showMath": "Show the math",
+    "hideMath": "Hide the math"
+  },
+  "currency": {
+    "usd": "USD",
+    "ils": "ILS",
+    "rateLabel": "1 USD = {rate} ILS",
+    "rateSource": "Source: {source}",
+    "auto": "Auto (live)",
+    "manual": "Manual",
+    "asOf": "As of {date}",
+    "edit": "Edit rate"
+  },
+  "locale": {
+    "hebrew": "Hebrew",
+    "english": "English"
+  },
+  "units": {
+    "perMonth": "/ month",
+    "perYear": "/ year",
+    "yearlyEquivalent": "× 12 = {yearly} / year"
+  },
+  "family": {
+    "title": "The family",
+    "subtitle": "Who lives in the household.",
+    "adults": {
+      "title": "Adults",
+      "parentA": "Parent A",
+      "parentB": "Parent B"
+    },
+    "kids": {
+      "title": "Children",
+      "kidA": "Older child",
+      "kidB": "Younger child",
+      "olderTag": "Kid A",
+      "youngerTag": "Kid B",
+      "kidASubtitle": "The one enrolled in Jewish day school.",
+      "kidBSubtitle": "The one with learning or personal difficulties.",
+      "kidAFootnote": "School, grant %, and aftercare are set in the Lifestyle tab.",
+      "age": "Age",
+      "ageHint": "Between 5 and 10.",
+      "kidBHasIEP": "Younger child has an IEP / special-ed plan",
+      "iepHint": "An IEP unlocks school-provided therapy and accommodations.",
+      "kidBHasWaiver": "Younger child has a Medicaid disability waiver",
+      "waiverHint": "Katie Beckett / TEFRA / HCBS: Medicaid granted on disability alone, independent of parent income."
+    },
+    "observance": {
+      "title": "Observance",
+      "level": "Observance level",
+      "levelHint": "Affects kosher defaults and a few lifestyle assumptions.",
+      "kosher": "Keeps kosher at home",
+      "kosherHint": "Adds a multiplier to the monthly grocery total.",
+      "options": {
+        "secular": "Secular",
+        "traditional": "Traditional",
+        "shomerShabbat": "Shomer Shabbat"
+      }
+    }
+  },
+  "lifestyle": {
+    "title": "Lifestyle & money",
+    "subtitle": "Where they live, what they earn, and the big monthly line items.",
+    "city": {
+      "title": "City",
+      "label": "Where they live",
+      "hint": "Drives rent, utilities, state tax, car insurance, ACA benchmark, and kosher grocery multiplier.",
+      "snapshot": "City snapshot",
+      "medianRent": "Median rent ({br}BR)",
+      "acaBenchmark": "ACA benchmark (family)",
+      "carInsurance": "Car insurance",
+      "kosherMult": "Kosher groceries"
+    },
+    "income": {
+      "title": "Income",
+      "parentATitle": "Parent A",
+      "parentBTitle": "Parent B",
+      "parentA": {
+        "employed": "Parent A employed",
+        "employedHint": "If off, Parent A has no salary this year.",
+        "job": "Job type",
+        "jobHint": "Affects salary range suggestions only; doesn't change tax math.",
+        "salary": "Gross yearly salary",
+        "salaryHint": "Before tax. Drag to simulate raises, furloughs or career changes.",
+        "employerHealth": "Employer offers family health coverage",
+        "employerHealthHint": "If on, the household can take the employer plan instead of the ACA marketplace.",
+        "employerPremium": "Employee share of family premium (yearly)",
+        "employerPremiumHint": "What the paycheck deduction would total for the year."
+      },
+      "parentB": {
+        "mode": "Parent B status",
+        "modeHint": "Determines which benefits and work limits apply.",
+        "modes": {
+          "employed": "Employed",
+          "ssdi": "On SSDI (disability)",
+          "ssi": "On SSI (disability, low income)",
+          "none": "Not working, no aid"
+        },
+        "salary": "Gross yearly salary",
+        "salaryHint": "For SSDI, any earnings count toward the SGA limit below.",
+        "ssdiMonthly": "SSDI monthly benefit",
+        "ssdiMonthlyHint": "Based on past work history — typical 2025 family average is about $1,580.",
+        "ssiMonthly": "SSI monthly benefit",
+        "ssiMonthlyHint": "Federal maximum 2025 is $967/mo for a single recipient — reduced by other income.",
+        "sgaWarn": "Earning above ${sga}/mo can suspend SSDI (Substantial Gainful Activity)."
+      }
+    },
+    "housing": {
+      "title": "Housing",
+      "bedrooms": "Bedrooms",
+      "bedroomsHint": "Drives the default rent from the city median.",
+      "rent": "Monthly rent",
+      "rentHint": "Default is the city median for this bedroom count, bumped ~15% for walkable/Jewish neighborhoods.",
+      "resetDefault": "Reset to city default",
+      "utilitiesLabel": "Utilities (estimated)"
+    },
+    "transport": {
+      "title": "Transport",
+      "hasCar": "Own a car",
+      "hasCarHint": "Turns on insurance, gas and maintenance costs for one car (city-average numbers).",
+      "usesTransit": "Uses public transit regularly",
+      "usesTransitHint": "Adds one monthly transit pass for the household.",
+      "noCarNote": "No car — only transit and walking."
+    },
+    "schools": {
+      "title": "Schools",
+      "kidA": {
+        "heading": "Older child — Jewish day school",
+        "school": "School",
+        "schoolHint": "Sticker price varies by grade; grant % is applied on top.",
+        "grant": "Financial-aid grant",
+        "grantHint": "Estimate from income; schools typically cover 0–80% for families in this range."
+      },
+      "kidB": {
+        "heading": "Younger child",
+        "placement": "Placement",
+        "placementHint": "Public placements are tuition-free; district-funded private placements require IEP advocacy.",
+        "placements": {
+          "publicIEP": "Public school with IEP",
+          "publicSpecial": "Public special-ed program",
+          "privateDistrictFunded": "Private special-ed (district-funded)",
+          "privateSelfPay": "Private special-ed (self-pay)",
+          "jewishDayWithSupport": "Jewish day school + private support"
+        },
+        "therapy": "Out-of-pocket therapy per month",
+        "therapyHint": "After insurance; OT / speech / ABA gap that parents cover.",
+        "tuition": "Out-of-pocket tuition (yearly)",
+        "tuitionHint": "Only applies if the placement is self-pay."
+      }
+    },
+    "health": {
+      "title": "Health insurance",
+      "strategy": "Coverage strategy",
+      "strategyHint": "The path the family takes to stay covered.",
+      "strategies": {
+        "employerFamily": "Employer family plan",
+        "marketplace": "ACA marketplace (full family)",
+        "medicaid": "Medicaid / CHIP",
+        "mixed": "Mixed (employer + marketplace)"
+      },
+      "usage": "Expected medical usage",
+      "usageHint": "Out-of-pocket estimate: low ≈ $1,200, typical ≈ $3,500, high ≈ $8,000.",
+      "usages": {
+        "low": "Low",
+        "typical": "Typical family",
+        "high": "High (special needs)"
+      },
+      "summary": "Coverage summary",
+      "onMedicaid": "On Medicaid",
+      "kidsOnChip": "Kids on CHIP",
+      "fplPct": "% of FPL",
+      "netPremium": "Net premium / yr",
+      "oopEstimate": "OOP / yr"
+    }
+  },
+  "results": {
+    "title": "The year in numbers",
+    "subtitle": "Every slider flows through here.",
+    "feasibility": {
+      "green": "Sustainable — surplus over two months of expenses.",
+      "yellow": "Tight — positive, but no cushion.",
+      "red": "Deficit — expenses exceed income this year."
+    },
+    "master": {
+      "title": "The master equation",
+      "formula": "Net = Gross income + Assistance − Taxes − Expenses",
+      "gross": "Gross income",
+      "assistance": "Assistance",
+      "taxes": "Taxes",
+      "expenses": "Expenses",
+      "net": "Net cash"
+    },
+    "headline": {
+      "grossIncome": "Gross income",
+      "netCash": "Net cash for the year",
+      "monthly": "Monthly cashflow",
+      "effectiveTax": "Effective tax + phase-out rate"
+    },
+    "breakdown": {
+      "title": "Where the money goes",
+      "income": "Income",
+      "taxes": "Taxes",
+      "housing": "Housing",
+      "schools": "Schools",
+      "health": "Health",
+      "food": "Food",
+      "transport": "Transport",
+      "other": "Other",
+      "assistance": "Assistance & credits",
+      "surplus": "Surplus",
+      "deficit": "Deficit"
+    },
+    "explain": {
+      "heading": "How each number is built",
+      "subtitle": "Tap any row to see the live formula.",
+      "housingDesc": "Rent × 12 + utilities + renters insurance.",
+      "housingFormula": "rent {rent}/mo × 12 + utilities {utilities} + renters ins. {insurance} = {total}",
+      "taxesDesc": "Federal + FICA + state + local, minus refundable CTC/EITC.",
+      "taxesFormula": "federal {federal} + FICA {fica} + state {state} + local {local}",
+      "taxesCreditsNote": "Refundable credits: CTC {ctc} + EITC {eitc} + state EITC {stateEitc} — added back via Assistance.",
+      "healthDesc": "ACA benchmark minus PTC subsidy, plus expected out-of-pocket.",
+      "healthFormulaAca": "benchmark {benchmark} − PTC {ptc} + OOP {oop} = {total}",
+      "healthFormulaMedicaid": "On Medicaid — premiums $0. OOP {oop}.",
+      "healthFormulaEmployer": "Employer premium {premium} + OOP {oop} = {total}",
+      "schoolsDesc": "Kid A tuition after grant + fees + aftercare; Kid B tuition + therapy.",
+      "kidALine": "Kid A: sticker {sticker} × (1 − {grantPct}%) + fees {fees} + aftercare {aftercare} = {total}",
+      "kidBLine": "Kid B: tuition {tuition} + therapy {therapy}/mo × 12 = {total}",
+      "foodDesc": "USDA moderate plan × kosher multiplier (if on).",
+      "foodFormula": "USDA {monthly}/mo × 12{kosher} = {total}",
+      "foodKosher": " × kosher {mult}",
+      "transportDesc": "Car costs (if owned) plus optional transit pass.",
+      "transportCar": "insurance {insurance} + gas {gas} + maintenance {maintenance} = {car}",
+      "transportNoCar": "no car",
+      "transportTransit": "transit pass {transit}",
+      "otherDesc": "Phone, clothing, kid activities, synagogue, streaming.",
+      "otherFormula": "phone 780 + clothing 1,500 + activities 1,440 + synagogue 1,500 + streaming 420 = {total}",
+      "assistanceDesc": "Money flowing back into the household.",
+      "assistanceFormula": "SNAP {snap} + refundable credits {credits} + state EITC {stateEitc} = {total}",
+      "snapIneligible": "SNAP not eligible at this income."
+    },
+    "cliff": {
+      "title": "The cliff chart",
+      "subtitle": "Net cash at each level of household earned income — watch for the drops where benefits phase out.",
+      "xAxis": "Household earned income",
+      "yAxis": "Net cash after taxes & transfers",
+      "marker": "Your point"
+    },
+    "compare": {
+      "title": "Side by side",
+      "subtitle": "The same family, the other city.",
+      "delta": "Difference"
+    }
+  },
+  "assumptions": {
+    "title": "Assumptions",
+    "subtitle": "Open any row to read what it changes.",
+    "taxYear": "Tax year",
+    "acaExtended": "ACA enhanced subsidies (IRA rules)",
+    "acaExtendedHint": "If off, pre-IRA rules apply: 400% FPL cliff returns and contribution caps rise.",
+    "kosherMultiplier": "Kosher grocery multiplier",
+    "kosherMultiplierHint": "Applied to the USDA moderate-cost food plan when 'keeps kosher' is on.",
+    "rentOverride": "Override default rent",
+    "fx": "Currency rate",
+    "reserve": "Months of reserve for 'green' feasibility",
+    "reserveHint": "Surplus must cover this many months of total expenses to be considered sustainable."
+  },
+  "cities": {
+    "denver_co": "Denver, Colorado",
+    "providence_ri": "Providence, Rhode Island"
+  },
+  "jobs": {
+    "local_newspaper": "Local newspaper / reporter",
+    "nonprofit_communications": "Non-profit communications",
+    "community_org": "Community organization",
+    "freelance_journalism": "Freelance journalism"
+  },
+  "schools": {
+    "denver_jds": "Denver Jewish Day School",
+    "rmha": "Herzl / Rocky Mountain Hebrew Academy",
+    "jcdsri": "Jewish Community Day School of RI",
+    "phds": "Providence Hebrew Day School"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "city_slug",
+  "labelKey": "cities.city_slug",
+  "state": "state_slug",
+  "jurisdictions": ["federal", "state_slug"],
+  "housing": {
+    "medianRentByBedrooms": { "1": 0, "2": 0, "3": 0, "4": 0 },
+    "hudFmrByBedrooms": { "1": 0, "2": 0, "3": 0, "4": 0 },
+    "jewishNeighborhoodPremium": 0
+  },
+  "utilitiesYearly": {
+    "electric": 0,
+    "gasHeat": 0,
+    "waterSewer": 0,
+    "internet": 0
+  },
+  "transport": {
+    "carInsuranceYearly": 0,
+    "gasMonthly": 0,
+    "transitPassMonthly": 0
+  },
+  "food": {
+    "usdaModerateMonthlyFamily4": 1300,
+    "kosherMultiplier": 1.3
+  },
+  "acaBenchmarkFamily4Monthly": 0,
+  "chip": { "kidsPctFplCap": 2.5 },
+  "schools": []
+}

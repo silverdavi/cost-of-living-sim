@@ -1,0 +1,62 @@
+{
+  "year": 2025,
+  "fpl": {
+    "1": 15650,
+    "2": 21150,
+    "3": 26650,
+    "4": 32150,
+    "5": 37650,
+    "6": 43150,
+    "7": 48650,
+    "8": 54150
+  },
+  "fplIncrementPerPerson": 5500,
+  "standardDeductionMFJ": 30000,
+  "brackets": [
+    { "upTo": 23850, "rate": 0.10 },
+    { "upTo": 96950, "rate": 0.12 },
+    { "upTo": 206700, "rate": 0.22 },
+    { "upTo": 394600, "rate": 0.24 },
+    { "upTo": 501050, "rate": 0.32 },
+    { "upTo": 751600, "rate": 0.35 },
+    { "upTo": null, "rate": 0.37 }
+  ],
+  "fica": {
+    "employeeRate": 0.0765,
+    "socialSecurityWageBase": 176100
+  },
+  "ctc": {
+    "perChild": 2000,
+    "refundableCap": 1700,
+    "phaseoutStartMFJ": 400000
+  },
+  "eitc": {
+    "maxMFJ2Kids": 7152,
+    "phaseoutEnd": 62688
+  },
+  "aca": {
+    "applicablePctBands": [
+      { "pctFplMax": 1.50, "pct": 0.00 },
+      { "pctFplMax": 2.00, "pct": 0.00 },
+      { "pctFplMax": 2.50, "pct": 0.02 },
+      { "pctFplMax": 3.00, "pct": 0.04 },
+      { "pctFplMax": 4.00, "pct": 0.06 },
+      { "pctFplMax": null, "pct": 0.085 }
+    ]
+  },
+  "snap": {
+    "maxAllotmentFamily4": 975,
+    "standardDeductionMonthly4Plus": 217,
+    "shelterDeductionCapMonthly": 712,
+    "grossIncomePctFpl": 1.30,
+    "benefitReductionRate": 0.30
+  },
+  "ssdi": {
+    "sgaMonthlyNonBlind": 1620,
+    "averageMonthlyBenefit": 1580
+  },
+  "ssi": {
+    "federalMaxSingle": 967,
+    "federalMaxCouple": 1450
+  }
+}

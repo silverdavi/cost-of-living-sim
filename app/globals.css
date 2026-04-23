@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #FBF7F0;
+  --surface: #F4EEE2;
+  --ink: #3A342E;
+  --line: #E4D9C4;
+}
+
+html, body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html[dir="rtl"] body {
+  font-feature-settings: "ss01";
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+  h1, h2, h3, h4 {
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface/80 rounded-2xl shadow-soft p-6 border border-line/60 backdrop-blur-sm;
+  }
+  .card-strong {
+    @apply bg-white/70 rounded-2xl shadow-card p-6 border border-line/60;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface2 text-ink/80 text-xs font-medium border border-line;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-white hover:bg-accent-deep shadow-soft;
+  }
+  .btn-ghost {
+    @apply btn text-ink hover:bg-surface2;
+  }
+  .btn-outline {
+    @apply btn border border-line bg-white/60 hover:bg-surface;
+  }
+  .label {
+    @apply text-sm font-medium text-ink/80;
+  }
+  .hint {
+    @apply text-xs text-muted leading-snug;
+  }
+  .divider {
+    @apply h-px bg-line/60 w-full my-4;
+  }
+  .v-divider {
+    @apply w-px bg-line/60 self-stretch mx-2;
+  }
+}
+
+.ink-stroke {
+  stroke: var(--ink);
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

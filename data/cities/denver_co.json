@@ -1,0 +1,41 @@
+{
+  "slug": "denver_co",
+  "labelKey": "cities.denver_co",
+  "state": "colorado",
+  "jurisdictions": ["federal", "colorado"],
+  "housing": {
+    "medianRentByBedrooms": {
+      "1": 1650,
+      "2": 2150,
+      "3": 2750,
+      "4": 3400
+    },
+    "hudFmrByBedrooms": {
+      "1": 1615,
+      "2": 1990,
+      "3": 2651,
+      "4": 3100
+    },
+    "jewishNeighborhoodPremium": 0.15
+  },
+  "utilitiesYearly": {
+    "electric": 900,
+    "gasHeat": 900,
+    "waterSewer": 600,
+    "internet": 900
+  },
+  "transport": {
+    "carInsuranceYearly": 2100,
+    "gasMonthly": 180,
+    "transitPassMonthly": 114
+  },
+  "food": {
+    "usdaModerateMonthlyFamily4": 1300,
+    "kosherMultiplier": 1.35
+  },
+  "acaBenchmarkFamily4Monthly": 1450,
+  "chip": {
+    "kidsPctFplCap": 2.60
+  },
+  "schools": ["denver_jds", "rmha"]
+}

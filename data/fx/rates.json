@@ -1,0 +1,6 @@
+{
+  "default_usd_to_ils": 3.0,
+  "as_of": "2026-04-23",
+  "source": "manual",
+  "notes": "User-supplied baseline (1 USD = 3 NIS). Override in the UI or enable auto-fetch."
+}

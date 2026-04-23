@@ -1,0 +1,41 @@
+{
+  "slug": "providence_ri",
+  "labelKey": "cities.providence_ri",
+  "state": "rhode_island",
+  "jurisdictions": ["federal", "rhode_island"],
+  "housing": {
+    "medianRentByBedrooms": {
+      "1": 1500,
+      "2": 1900,
+      "3": 2400,
+      "4": 2900
+    },
+    "hudFmrByBedrooms": {
+      "1": 1400,
+      "2": 1720,
+      "3": 2310,
+      "4": 2700
+    },
+    "jewishNeighborhoodPremium": 0.15
+  },
+  "utilitiesYearly": {
+    "electric": 1400,
+    "gasHeat": 1800,
+    "waterSewer": 700,
+    "internet": 840
+  },
+  "transport": {
+    "carInsuranceYearly": 3200,
+    "gasMonthly": 140,
+    "transitPassMonthly": 70
+  },
+  "food": {
+    "usdaModerateMonthlyFamily4": 1300,
+    "kosherMultiplier": 1.25
+  },
+  "acaBenchmarkFamily4Monthly": 1900,
+  "chip": {
+    "kidsPctFplCap": 2.61
+  },
+  "schools": ["jcdsri", "phds"]
+}

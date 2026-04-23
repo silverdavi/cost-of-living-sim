@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "family": {
+    "kidAAge": 9,
+    "kidBAge": 6,
+    "kidBHasIEP": true,
+    "kidBHasMedicaidWaiver": false,
+    "observance": "traditional",
+    "keepsKosher": true
+  },
+  "lifestyle": {
+    "city": "denver_co",
+    "parentA": {
+      "employed": true,
+      "jobType": "local_newspaper",
+      "grossSalaryUsd": 55000,
+      "hasEmployerHealth": false,
+      "employerPremiumYearlyUsd": 0
+    },
+    "parentB": {
+      "mode": "ssdi",
+      "grossSalaryUsd": 0,
+      "ssdiMonthlyUsd": 1580,
+      "ssiMonthlyUsd": 0
+    },
+    "housing": {
+      "bedrooms": 3,
+      "monthlyRentUsd": 2750,
+      "overrideRent": false
+    },
+    "transport": {
+      "hasCar": true,
+      "usesTransit": false
+    },
+    "schools": {
+      "kidASchool": "denver_jds",
+      "kidAGrantPct": 0.55,
+      "kidBPlacement": "publicIEP",
+      "kidBTuitionYearlyUsd": 0,
+      "kidBTherapyMonthlyUsd": 400
+    },
+    "health": {
+      "strategy": "marketplace",
+      "usage": "typical"
+    }
+  }
+}

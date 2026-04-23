@@ -1,0 +1,14 @@
+{
+  "jurisdiction": "rhode_island",
+  "year": 2025,
+  "brackets": [
+    { "upTo": 79900, "rate": 0.0375 },
+    { "upTo": 181650, "rate": 0.0475 },
+    { "upTo": null, "rate": 0.0599 }
+  ],
+  "standardDeductionMFJ": 20050,
+  "personalExemptionPerPerson": 5050,
+  "stateEitcMultiplier": 0.16,
+  "localPerEmployeeMonthly": 0,
+  "notes": "RI progressive 3.75/4.75/5.99%. Personal exemption per household member."
+}

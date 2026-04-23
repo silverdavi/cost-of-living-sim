@@ -1,0 +1,9 @@
+{
+  "jurisdiction": "colorado",
+  "year": 2025,
+  "flatRate": 0.044,
+  "standardDeductionMFJ": 30000,
+  "stateEitcMultiplier": 0.50,
+  "localPerEmployeeMonthly": 5.75,
+  "notes": "CO flat 4.4% of federal taxable income (CO-specific modifications). Denver OPT $5.75/mo per employee earning >= $500/mo."
+}
