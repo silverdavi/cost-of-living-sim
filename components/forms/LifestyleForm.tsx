@@ -19,6 +19,7 @@ import { getAllCities, getSchoolsForCity, getCity } from "@/lib/data/loaders";
 import { computeIncome, computeMagi } from "@/lib/model/income";
 import { computeAca, expectedOopMedicalYearly } from "@/lib/model/aca";
 import { suggestedGrantPct } from "@/lib/model/schools";
+import { HOUSING_TIER_MULTIPLIER, CAR_PROFILES, CAR_MAINTENANCE_YEARLY, type CarType } from "@/lib/model/expenses";
 import { getSchool } from "@/lib/data/loaders";
 import { federal } from "@/lib/data/loaders";
 import { Money } from "@/components/controls/Money";
@@ -36,6 +37,17 @@ const JOBS = [
   "community_org",
   "freelance_journalism",
 ] as const;
+
+const HOUSING_TIERS = ["budget", "standard", "premium"] as const;
+
+const CAR_TYPES: CarType[] = [
+  "used_compact",
+  "used_sedan",
+  "used_minivan",
+  "new_compact",
+  "new_sedan",
+  "new_minivan",
+];
 
 export function LifestyleForm() {
   const t = useTranslations();
@@ -95,17 +107,56 @@ export function LifestyleForm() {
   const br = String(profile.lifestyle.housing.bedrooms);
   const cityMedianRent = city.housing.medianRentByBedrooms[br] ?? 0;
 
+  const tier = profile.lifestyle.housing.tier ?? "standard";
+  const tierMult = HOUSING_TIER_MULTIPLIER[tier];
+
+  const baselineRent = (c: typeof city, bedrooms: number, t: keyof typeof HOUSING_TIER_MULTIPLIER) => {
+    const median = c.housing.medianRentByBedrooms[String(bedrooms)] ?? 0;
+    return Math.round(median * HOUSING_TIER_MULTIPLIER[t] * (1 + c.housing.jewishNeighborhoodPremium));
+  };
+
   const onCityChange = (slug: string) => {
     const nextCity = getCity(slug);
-    const rentForBr = nextCity.housing.medianRentByBedrooms[String(profile.lifestyle.housing.bedrooms)] ?? 0;
     const nextSchools = getSchoolsForCity(slug);
     const nextSchoolSlug = nextSchools[0]?.slug ?? profile.lifestyle.schools.kidASchool;
     patchLifestyle({ city: slug });
     if (!profile.lifestyle.housing.overrideRent) {
-      patchHousing({ monthlyRentUsd: Math.round(rentForBr * (1 + nextCity.housing.jewishNeighborhoodPremium)) });
+      patchHousing({
+        monthlyRentUsd: baselineRent(nextCity, profile.lifestyle.housing.bedrooms, tier),
+      });
     }
     patchSchools({ kidASchool: nextSchoolSlug });
   };
+
+  const onTierChange = (next: keyof typeof HOUSING_TIER_MULTIPLIER) => {
+    if (!profile.lifestyle.housing.overrideRent) {
+      patchHousing({
+        tier: next,
+        monthlyRentUsd: baselineRent(city, profile.lifestyle.housing.bedrooms, next),
+      });
+    } else {
+      patchHousing({ tier: next });
+    }
+  };
+
+  const onBedroomsChange = (bedrooms: number) => {
+    if (!profile.lifestyle.housing.overrideRent) {
+      patchHousing({
+        bedrooms,
+        monthlyRentUsd: baselineRent(city, bedrooms, tier),
+      });
+    } else {
+      patchHousing({ bedrooms });
+    }
+  };
+
+  const carType: CarType = profile.lifestyle.transport.carType ?? "used_sedan";
+  const carProfile = CAR_PROFILES[carType];
+  const carYearlyPreview =
+    Math.round(city.transport.carInsuranceYearly * carProfile.insuranceMult) +
+    Math.round(city.transport.gasMonthly * 12 * carProfile.gasMult) +
+    Math.round(CAR_MAINTENANCE_YEARLY * carProfile.maintenanceMult) +
+    carProfile.monthlyPayment * 12;
 
   const yearly = (monthly: number) => (
     <>
@@ -182,9 +233,30 @@ export function LifestyleForm() {
               min={1}
               max={4}
               step={1}
-              onValueChange={(v) => patchHousing({ bedrooms: v[0] })}
+              onValueChange={(v) => onBedroomsChange(v[0])}
             />
           </FieldRow>
+
+          <FieldRow
+            label={t("lifestyle.housing.tier")}
+            hint={t("lifestyle.housing.tierHint")}
+            valueBadge={<div className="chip">×{tierMult.toFixed(2)}</div>}
+          >
+            <Select
+              value={tier}
+              onValueChange={(v) => onTierChange(v as keyof typeof HOUSING_TIER_MULTIPLIER)}
+            >
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {HOUSING_TIERS.map((opt) => (
+                  <SelectItem key={opt} value={opt}>
+                    {t(`lifestyle.housing.tiers.${opt}`)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FieldRow>
+
           <FieldRow
             label={t("lifestyle.housing.rent")}
             hint={t("lifestyle.housing.rentHint")}
@@ -210,9 +282,10 @@ export function LifestyleForm() {
                 variant="subtle"
                 title={t("lifestyle.housing.resetDefault")}
                 onClick={() => {
-                  const median = city.housing.medianRentByBedrooms[br] ?? 0;
-                  const w = Math.round(median * (1 + city.housing.jewishNeighborhoodPremium));
-                  patchHousing({ monthlyRentUsd: w, overrideRent: false });
+                  patchHousing({
+                    monthlyRentUsd: baselineRent(city, profile.lifestyle.housing.bedrooms, tier),
+                    overrideRent: false,
+                  });
                 }}
               >
                 ↻
@@ -431,10 +504,12 @@ export function LifestyleForm() {
             label={t("lifestyle.transport.hasCar")}
             hint={t("lifestyle.transport.hasCarHint")}
             valueBadge={
-              <div className="chip">
-                <Money usd={city.transport.carInsuranceYearly + city.transport.gasMonthly * 12 + 800} />
-                <span className="ms-1 text-muted">{t("units.perYear")}</span>
-              </div>
+              profile.lifestyle.transport.hasCar ? (
+                <div className="chip">
+                  <Money usd={carYearlyPreview} />
+                  <span className="ms-1 text-muted">{t("units.perYear")}</span>
+                </div>
+              ) : undefined
             }
           >
             <Switch
@@ -443,6 +518,47 @@ export function LifestyleForm() {
               aria-label={t("lifestyle.transport.hasCar")}
             />
           </FieldRow>
+
+          {profile.lifestyle.transport.hasCar && (
+            <FieldRow
+              label={t("lifestyle.transport.carType")}
+              hint={t("lifestyle.transport.carTypeHint")}
+              valueBadge={
+                carProfile.monthlyPayment > 0 ? (
+                  <div className="chip">
+                    <Money usd={carProfile.monthlyPayment} />
+                    <span className="ms-1 text-muted">{t("units.perMonth")}</span>
+                  </div>
+                ) : undefined
+              }
+              caption={
+                carProfile.monthlyPayment > 0 ? (
+                  <>
+                    {t("lifestyle.transport.monthlyPaymentLabel")}
+                    {": "}
+                    <Money usd={carProfile.monthlyPayment * 12} />
+                    <span className="mx-1">/</span>
+                    {t("units.perYear").replace("/", "").trim()}
+                  </>
+                ) : undefined
+              }
+            >
+              <Select
+                value={carType}
+                onValueChange={(v) => patchTransport({ carType: v as CarType })}
+              >
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {CAR_TYPES.map((opt) => (
+                    <SelectItem key={opt} value={opt}>
+                      {t(`lifestyle.transport.carTypes.${opt}`)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FieldRow>
+          )}
+
           <FieldRow
             label={t("lifestyle.transport.usesTransit")}
             hint={t("lifestyle.transport.usesTransitHint")}

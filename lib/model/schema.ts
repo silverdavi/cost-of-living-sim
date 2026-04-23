@@ -141,10 +141,21 @@ export const familyProfileSchema = z.object({
       bedrooms: z.number().min(1).max(5),
       monthlyRentUsd: z.number().min(0),
       overrideRent: z.boolean(),
+      tier: z.enum(["budget", "standard", "premium"]).default("standard"),
     }),
     transport: z.object({
       hasCar: z.boolean(),
       usesTransit: z.boolean(),
+      carType: z
+        .enum([
+          "used_compact",
+          "used_sedan",
+          "used_minivan",
+          "new_compact",
+          "new_sedan",
+          "new_minivan",
+        ])
+        .default("used_sedan"),
     }),
     schools: z.object({
       kidASchool: z.string(),

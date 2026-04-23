@@ -57,14 +57,51 @@ describe("runSimulation on default profile", () => {
       ...profile,
       lifestyle: {
         ...profile.lifestyle,
-        transport: { hasCar: false, usesTransit: true },
+        transport: { hasCar: false, usesTransit: true, carType: "used_sedan" as const },
       },
     };
     const r = runSimulation(carless, baseAssumptions);
     expect(r.transport.carYearly).toBe(0);
     expect(r.transport.carInsuranceYearly).toBe(0);
     expect(r.transport.gasYearly).toBe(0);
+    expect(r.transport.paymentYearly).toBe(0);
     expect(r.transport.transitYearly).toBeGreaterThan(0);
+  });
+
+  it("new_sedan adds a loan payment and trims maintenance", () => {
+    const newCar = {
+      ...profile,
+      lifestyle: {
+        ...profile.lifestyle,
+        transport: { hasCar: true, usesTransit: false, carType: "new_sedan" as const },
+      },
+    };
+    const baseline = runSimulation(profile, baseAssumptions);
+    const r = runSimulation(newCar, baseAssumptions);
+    expect(r.transport.paymentYearly).toBe(500 * 12);
+    expect(r.transport.maintenanceYearly).toBeLessThan(baseline.transport.maintenanceYearly);
+    expect(r.transport.total).toBeGreaterThan(baseline.transport.total);
+  });
+
+  it("budget housing tier is cheaper than premium", () => {
+    const budget = {
+      ...profile,
+      lifestyle: {
+        ...profile.lifestyle,
+        housing: { ...profile.lifestyle.housing, tier: "budget" as const, overrideRent: false },
+      },
+    };
+    const premium = {
+      ...profile,
+      lifestyle: {
+        ...profile.lifestyle,
+        housing: { ...profile.lifestyle.housing, tier: "premium" as const, overrideRent: false },
+      },
+    };
+    const b = runSimulation(budget, baseAssumptions);
+    const p = runSimulation(premium, baseAssumptions);
+    expect(b.housing.monthlyRent).toBeLessThan(p.housing.monthlyRent);
+    expect(b.housing.total).toBeLessThan(p.housing.total);
   });
 
   it("Providence default profile also runs", () => {

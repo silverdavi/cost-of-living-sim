@@ -126,8 +126,15 @@
       "title": "Housing",
       "bedrooms": "Bedrooms",
       "bedroomsHint": "Drives the default rent from the city median.",
+      "tier": "Apartment tier",
+      "tierHint": "A quick way to pick a cheaper or nicer apartment without typing a number. Budget ≈ 85% of city median, Premium ≈ 120%.",
+      "tiers": {
+        "budget": "Budget (−15%)",
+        "standard": "Standard (median)",
+        "premium": "Premium (+20%)"
+      },
       "rent": "Monthly rent",
-      "rentHint": "Default is the city median for this bedroom count, bumped ~15% for walkable/Jewish neighborhoods.",
+      "rentHint": "Default is the city median for this bedroom count and tier, bumped ~15% for walkable/Jewish neighborhoods.",
       "resetDefault": "Reset to city default",
       "utilitiesLabel": "Utilities (estimated)"
     },
@@ -135,6 +142,17 @@
       "title": "Transport",
       "hasCar": "Own a car",
       "hasCarHint": "Turns on insurance, gas and maintenance costs for one car (city-average numbers).",
+      "carType": "Car type",
+      "carTypeHint": "Used cars: no loan payment but maintenance runs higher. New cars: adds a monthly loan payment but fewer repairs. Minivans cost more to insure and fuel; compacts less.",
+      "carTypes": {
+        "used_compact": "Used compact (cheap)",
+        "used_sedan": "Used sedan",
+        "used_minivan": "Used minivan",
+        "new_compact": "New compact",
+        "new_sedan": "New sedan",
+        "new_minivan": "New minivan"
+      },
+      "monthlyPaymentLabel": "Monthly loan payment",
       "usesTransit": "Uses public transit regularly",
       "usesTransitHint": "Adds one monthly transit pass for the household.",
       "noCarNote": "No car — only transit and walking."
@@ -230,8 +248,8 @@
     "explain": {
       "heading": "How each number is built",
       "subtitle": "Tap any row to see the live formula.",
-      "housingDesc": "Rent × 12 + utilities + renters insurance.",
-      "housingFormula": "rent {rent}/mo × 12 + utilities {utilities} + renters ins. {insurance} = {total}",
+      "housingDesc": "Rent × 12 + utilities + renters insurance. Tier multiplier applied to city median.",
+      "housingFormula": "rent {rent}/mo ({tier}, ×{tierMult} of median {median}) × 12 + utilities {utilities} + renters ins. {insurance} = {total}",
       "taxesDesc": "Federal + FICA + state + local, minus refundable CTC/EITC.",
       "taxesFormula": "federal {federal} + FICA {fica} + state {state} + local {local}",
       "taxesCreditsNote": "Refundable credits: CTC {ctc} + EITC {eitc} + state EITC {stateEitc} — added back via Assistance.",
@@ -246,7 +264,8 @@
       "foodFormula": "USDA {monthly}/mo × 12{kosher} = {total}",
       "foodKosher": " × kosher {mult}",
       "transportDesc": "Car costs (if owned) plus optional transit pass.",
-      "transportCar": "insurance {insurance} + gas {gas} + maintenance {maintenance} = {car}",
+      "transportCar": "insurance {insurance} + gas {gas} + maintenance {maintenance}{payment} = {car}",
+      "transportPayment": " + loan {payment}",
       "transportNoCar": "no car",
       "transportTransit": "transit pass {transit}",
       "otherDesc": "Phone, clothing, kid activities, synagogue, streaming.",

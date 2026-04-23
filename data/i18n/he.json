@@ -126,8 +126,15 @@
       "title": "דיור",
       "bedrooms": "חדרי שינה",
       "bedroomsHint": "קובע את ברירת המחדל לשכר הדירה על פי חציון העיר.",
+      "tier": "רמת דירה",
+      "tierHint": "דרך מהירה לבחור דירה זולה יותר או יוקרתית יותר בלי להקליד מספר. חסכוני ≈ 85% מחציון העיר, יוקרה ≈ 120%.",
+      "tiers": {
+        "budget": "חסכוני (−15%)",
+        "standard": "רגיל (חציון)",
+        "premium": "יוקרה (+20%)"
+      },
       "rent": "שכר דירה חודשי",
-      "rentHint": "ברירת המחדל היא החציון בעיר לגודל הדירה, בתוספת ~15% לשכונות הליכתיות/יהודיות.",
+      "rentHint": "ברירת המחדל היא החציון בעיר לגודל הדירה וברמה שנבחרה, בתוספת ~15% לשכונות הליכתיות/יהודיות.",
       "resetDefault": "חזרה לברירת המחדל של העיר",
       "utilitiesLabel": "חשבונות (אומדן)"
     },
@@ -135,6 +142,17 @@
       "title": "תחבורה",
       "hasCar": "בעלות על רכב",
       "hasCarHint": "מפעיל עלויות ביטוח, דלק ותחזוקה לרכב אחד (ממוצע עירוני).",
+      "carType": "סוג הרכב",
+      "carTypeHint": "יד שנייה: אין החזר הלוואה אך תחזוקה יקרה יותר. חדש: מוסיף תשלום חודשי על הלוואה אך פחות תיקונים. מיניוואן — ביטוח ודלק יקרים יותר; קומפקטי — זולים יותר.",
+      "carTypes": {
+        "used_compact": "קומפקטי יד שנייה (זול)",
+        "used_sedan": "סדאן יד שנייה",
+        "used_minivan": "מיניוואן יד שנייה",
+        "new_compact": "קומפקטי חדש",
+        "new_sedan": "סדאן חדש",
+        "new_minivan": "מיניוואן חדש"
+      },
+      "monthlyPaymentLabel": "החזר הלוואה חודשי",
       "usesTransit": "משתמשים בתחבורה ציבורית באופן קבוע",
       "usesTransitHint": "מוסיף חוזה חודשי אחד למשק הבית.",
       "noCarNote": "אין רכב — רק תחבורה ציבורית והליכה."
@@ -230,8 +248,8 @@
     "explain": {
       "heading": "איך כל מספר נבנה",
       "subtitle": "הקש על שורה כדי לראות את הנוסחה החיה.",
-      "housingDesc": "שכר דירה × 12 + חשבונות + ביטוח דיירים.",
-      "housingFormula": "שכר דירה {rent}/חודש × 12 + חשבונות {utilities} + ביטוח דיירים {insurance} = {total}",
+      "housingDesc": "שכר דירה × 12 + חשבונות + ביטוח דיירים. מכפיל הרמה מוחל על חציון העיר.",
+      "housingFormula": "שכר דירה {rent}/חודש ({tier}, ×{tierMult} מהחציון {median}) × 12 + חשבונות {utilities} + ביטוח דיירים {insurance} = {total}",
       "taxesDesc": "פדרלי + FICA + מדינה + מקומי, פחות זיכויי CTC/EITC ניתנים להחזר.",
       "taxesFormula": "פדרלי {federal} + FICA {fica} + מדינה {state} + מקומי {local}",
       "taxesCreditsNote": "זיכויים מוחזרים: CTC {ctc} + EITC {eitc} + EITC מדינתי {stateEitc} — מתווספים בחזרה תחת קצבאות.",
@@ -246,7 +264,8 @@
       "foodFormula": "USDA {monthly}/חודש × 12{kosher} = {total}",
       "foodKosher": " × כשרות {mult}",
       "transportDesc": "עלויות רכב (אם יש) פלוס חוזה תחבורה אופציונלי.",
-      "transportCar": "ביטוח {insurance} + דלק {gas} + תחזוקה {maintenance} = {car}",
+      "transportCar": "ביטוח {insurance} + דלק {gas} + תחזוקה {maintenance}{payment} = {car}",
+      "transportPayment": " + הלוואה {payment}",
       "transportNoCar": "אין רכב",
       "transportTransit": "חוזה תחבורה {transit}",
       "otherDesc": "טלפון, ביגוד, חוגים, בית כנסת, סטרימינג.",

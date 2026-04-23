@@ -74,7 +74,11 @@ export function runSimulation(profile: FamilyProfile, assumptions: Assumptions):
     profile.family.keepsKosher,
     assumptions.kosherMultiplierOverride
   );
-  const transport = computeTransport(city, profile.lifestyle.transport);
+  const transport = computeTransport(city, {
+    hasCar: profile.lifestyle.transport.hasCar,
+    usesTransit: profile.lifestyle.transport.usesTransit,
+    carType: profile.lifestyle.transport.carType,
+  });
   const otherYearly = computeOtherYearly();
 
   const kidASchool = getSchool(profile.lifestyle.schools.kidASchool);

@@ -46,6 +46,9 @@ export function ExpenseBreakdownList({ agg }: { agg: Aggregate }) {
         lines: [
           t("results.explain.housingFormula", {
             rent: money(agg.housing.monthlyRent),
+            tier: t(`lifestyle.housing.tiers.${agg.housing.tier}`),
+            tierMult: agg.housing.tierMultiplier.toFixed(2),
+            median: money(agg.housing.medianRent),
             utilities: money(agg.housing.utilitiesYearly),
             insurance: money(agg.housing.rentersInsuranceYearly),
             total: money(agg.housing.total),
@@ -144,6 +147,12 @@ export function ExpenseBreakdownList({ agg }: { agg: Aggregate }) {
                 insurance: money(agg.transport.carInsuranceYearly),
                 gas: money(agg.transport.gasYearly),
                 maintenance: money(agg.transport.maintenanceYearly),
+                payment:
+                  agg.transport.paymentYearly > 0
+                    ? t("results.explain.transportPayment", {
+                        payment: money(agg.transport.paymentYearly),
+                      })
+                    : "",
                 car: money(agg.transport.carYearly),
               })
             : t("results.explain.transportNoCar"),

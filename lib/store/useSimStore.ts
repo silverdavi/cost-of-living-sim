@@ -35,10 +35,12 @@ const defaultProfile: FamilyProfile = {
       bedrooms: 3,
       monthlyRentUsd: 2750,
       overrideRent: false,
+      tier: "standard",
     },
     transport: {
       hasCar: true,
       usesTransit: false,
+      carType: "used_sedan",
     },
     schools: {
       kidASchool: "denver_jds",
