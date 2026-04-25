@@ -8,7 +8,7 @@ import { defaultUsdToIls, rateAsOf, rateSource } from "../currency/convert";
 
 const defaultProfile: FamilyProfile = {
   version: 2,
-  scenarioName: "Morell baseline",
+  scenarioName: "D and N baseline",
   family: {
     children: [
       {
