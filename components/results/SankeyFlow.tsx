@@ -12,11 +12,11 @@ export function SankeyFlow({ agg }: { agg: Aggregate }) {
   const outflows = [
     { key: "taxes", usd: agg.taxes.totalTax, color: "#D99A9A" },
     { key: "housing", usd: agg.housing.total, color: "#E6A57E" },
-    { key: "schools", usd: agg.kidA.total + agg.kidB.total, color: "#C67D55" },
+    { key: "schools", usd: agg.childrenTotal, color: "#C67D55" },
     { key: "health", usd: agg.aca.netPremiumYearly + agg.oopMedicalYearly, color: "#F4D58D" },
     { key: "food", usd: agg.foodYearly, color: "#A9C5A0" },
     { key: "transport", usd: agg.transport.total, color: "#E8B96F" },
-    { key: "other", usd: agg.otherYearly, color: "#7A6F62" },
+    { key: "customExpenses", usd: agg.customExpenses.totalYearly, color: "#7A6F62" },
   ].filter((o) => o.usd > 0);
 
   const surplusKey = agg.netCashYearly >= 0 ? "surplus" : "deficit";

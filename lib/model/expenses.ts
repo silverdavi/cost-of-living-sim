@@ -1,4 +1,4 @@
-import type { CityData, FamilyProfile } from "./schema";
+import type { CityData, FamilyProfile, CustomExpense, ExpenseCategory } from "./schema";
 
 export interface HousingCost {
   monthlyRent: number;
@@ -43,9 +43,15 @@ export function computeHousing(city: CityData, profile: FamilyProfile): HousingC
   };
 }
 
-export function computeFoodYearly(city: CityData, foodMultiplier: number): number {
-  const base = city.food.usdaModerateMonthlyFamily4 * 12;
-  return Math.round(base * foodMultiplier);
+export function computeFoodYearly(
+  city: CityData,
+  foodMultiplier: number,
+  householdSize: number = 4
+): number {
+  const baseFamily4 = city.food.usdaModerateMonthlyFamily4 * 12;
+  // USDA plan is per family of 4; scale roughly per person for other sizes.
+  const sizeMultiplier = householdSize / 4;
+  return Math.round(baseFamily4 * foodMultiplier * sizeMultiplier);
 }
 
 export type CarType =
@@ -115,11 +121,55 @@ export function computeTransport(
   };
 }
 
-export function computeOtherYearly(): number {
-  const phone = 65 * 12;
-  const clothing = 1500;
-  const kidsActivities = 120 * 12;
-  const synagogue = 1500;
-  const streaming = 35 * 12;
-  return phone + clothing + kidsActivities + synagogue + streaming;
+export interface CustomExpensesBreakdown {
+  totalYearly: number;
+  byCategory: Record<ExpenseCategory, number>;
+  enabledItems: Array<CustomExpense & { yearly: number }>;
 }
+
+const ALL_CATEGORIES: ExpenseCategory[] = [
+  "phone",
+  "internet",
+  "clothing",
+  "synagogue",
+  "activities",
+  "subscriptions",
+  "debt",
+  "childcare",
+  "pets",
+  "gifts",
+  "travel",
+  "savings",
+  "other",
+];
+
+export function expenseYearly(e: CustomExpense): number {
+  if (!e.enabled) return 0;
+  if (e.frequency === "monthly") return e.amountUsd * 12;
+  return e.amountUsd;
+}
+
+export function computeCustomExpenses(items: CustomExpense[]): CustomExpensesBreakdown {
+  const byCategory = ALL_CATEGORIES.reduce((acc, c) => {
+    acc[c] = 0;
+    return acc;
+  }, {} as Record<ExpenseCategory, number>);
+  const enabledItems: Array<CustomExpense & { yearly: number }> = [];
+  let totalYearly = 0;
+  for (const item of items) {
+    const y = expenseYearly(item);
+    if (item.enabled) enabledItems.push({ ...item, yearly: y });
+    byCategory[item.category] += y;
+    totalYearly += y;
+  }
+  return { totalYearly, byCategory, enabledItems };
+}
+
+export const DEFAULT_CUSTOM_EXPENSES: Omit<CustomExpense, "id">[] = [
+  { label: "Phone (family plan)",     category: "phone",         amountUsd: 65,   frequency: "monthly", enabled: true, notes: "" },
+  { label: "Internet",                category: "internet",      amountUsd: 60,   frequency: "monthly", enabled: true, notes: "" },
+  { label: "Clothing",                category: "clothing",      amountUsd: 1500, frequency: "yearly",  enabled: true, notes: "" },
+  { label: "Kids' activities",        category: "activities",    amountUsd: 120,  frequency: "monthly", enabled: true, notes: "" },
+  { label: "Synagogue dues",          category: "synagogue",     amountUsd: 1500, frequency: "yearly",  enabled: true, notes: "" },
+  { label: "Streaming services",      category: "subscriptions", amountUsd: 35,   frequency: "monthly", enabled: true, notes: "" },
+];

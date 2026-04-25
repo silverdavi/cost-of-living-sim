@@ -11,10 +11,15 @@
   "actions": {
     "export": "Export profile",
     "import": "Import profile",
+    "copyShare": "Copy share link",
+    "printReport": "Print / Save PDF",
     "reset": "Reset",
     "close": "Close",
     "save": "Save",
     "applySuggested": "Use suggested",
+    "duplicate": "Duplicate",
+    "remove": "Remove",
+    "copy": "copy",
     "showMath": "Show the math",
     "hideMath": "Hide the math"
   },
@@ -27,6 +32,38 @@
     "manual": "Manual",
     "asOf": "As of {date}",
     "edit": "Edit rate"
+  },
+  "scenarios": {
+    "active": "Active scenario",
+    "name": "Scenario name",
+    "untitled": "Untitled scenario",
+    "save": "Save current",
+    "new": "New",
+    "duplicate": "Duplicate",
+    "mark": "Mark edited",
+    "delete": "Delete scenario"
+  },
+  "report": {
+    "title": "Printable report",
+    "subtitle": "A print-friendly summary for saving as PDF from the browser.",
+    "print": "Print / Save PDF",
+    "scenario": "Scenario",
+    "netYear": "Net cash / year",
+    "monthly": "Monthly cashflow",
+    "household": "Household size",
+    "verdict": "Verdict",
+    "yearlyTable": "Yearly totals",
+    "children": "Children and school/support costs"
+  },
+  "setupNav": {
+    "city": "City",
+    "housing": "Housing",
+    "income": "Income",
+    "transport": "Transport",
+    "food": "Food",
+    "kids": "Kids",
+    "expenses": "Expenses",
+    "health": "Health"
   },
   "locale": {
     "hebrew": "Hebrew",
@@ -47,6 +84,12 @@
     },
     "kids": {
       "title": "Children",
+      "subtitle": "Add, remove, and configure every child in the household.",
+      "child": "Child",
+      "name": "Child name",
+      "add": "Add child",
+      "householdSize": "Household size: {count}",
+      "childNumber": "Child #{n}",
       "kidA": "Older child",
       "kidB": "Younger child",
       "olderTag": "Kid A",
@@ -55,7 +98,20 @@
       "kidBSubtitle": "The one with learning or personal difficulties.",
       "kidAFootnote": "School, grant %, and aftercare are set in the Lifestyle tab.",
       "age": "Age",
-      "ageHint": "Between 5 and 10.",
+      "ageHint": "Age affects food scaling and school grade.",
+      "placement": "School / support setup",
+      "placementHint": "Choose public, Jewish day school, self-pay private school, or district-funded special education.",
+      "placements": {
+        "public": "Public school",
+        "publicIEP": "Public school with IEP",
+        "publicSpecial": "Public special-ed program",
+        "privateDistrictFunded": "Private special-ed (district-funded)",
+        "privateSelfPay": "Private school (self-pay)",
+        "jewishDay": "Jewish day school",
+        "jewishDayWithSupport": "Jewish day school + private support"
+      },
+      "hasIEP": "Has an IEP / special-ed plan",
+      "hasWaiver": "Has a Medicaid disability waiver",
       "kidBHasIEP": "Younger child has an IEP / special-ed plan",
       "iepHint": "An IEP unlocks school-provided therapy and accommodations.",
       "kidBHasWaiver": "Younger child has a Medicaid disability waiver",
@@ -71,6 +127,35 @@
         "resetPlain": "Back to ×1.00"
       }
     },
+  "expenses": {
+    "title": "Custom expenses",
+    "subtitle": "Turn the old miscellaneous bucket into editable line items.",
+    "add": "Add expense",
+    "newExpense": "New expense",
+    "name": "Expense name",
+    "amount": "Amount",
+    "enabled": "Enabled",
+    "frequency": {
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "oneTime": "One time"
+    },
+    "categories": {
+      "phone": "Phone",
+      "internet": "Internet",
+      "clothing": "Clothing",
+      "synagogue": "Synagogue / community",
+      "activities": "Activities",
+      "subscriptions": "Subscriptions",
+      "debt": "Debt payments",
+      "childcare": "Childcare",
+      "pets": "Pets",
+      "gifts": "Gifts",
+      "travel": "Travel",
+      "savings": "Emergency fund",
+      "other": "Miscellaneous"
+    }
+  },
   "lifestyle": {
     "title": "Setup",
     "subtitle": "Who lives here, where they live, what they earn, and the big monthly line items.",
@@ -245,6 +330,7 @@
       "food": "Food",
       "transport": "Transport",
       "other": "Other",
+      "customExpenses": "Custom expenses",
       "assistance": "Assistance & credits",
       "surplus": "Surplus",
       "deficit": "Deficit"
@@ -261,9 +347,10 @@
       "healthFormulaAca": "benchmark {benchmark} − PTC {ptc} + OOP {oop} = {total}",
       "healthFormulaMedicaid": "On Medicaid — premiums $0. OOP {oop}.",
       "healthFormulaEmployer": "Employer premium {premium} + OOP {oop} = {total}",
-      "schoolsDesc": "Kid A tuition after grant + fees + aftercare; Kid B tuition + therapy.",
+      "schoolsDesc": "School, tuition, support, and therapy costs across all children.",
       "kidALine": "Kid A: sticker {sticker} × (1 − {grantPct}%) + fees {fees} + aftercare {aftercare} = {total}",
       "kidBLine": "Kid B: tuition {tuition} + therapy {therapy}/mo × 12 = {total}",
+      "childLine": "{name}: tuition {tuition} + fees {fees} + aftercare {aftercare} + therapy {therapy} = {total}",
       "foodDesc": "USDA moderate plan × kosher multiplier (if on).",
       "foodFormula": "USDA {monthly}/mo × 12{kosher} = {total}",
       "foodKosher": " × kosher {mult}",
@@ -272,8 +359,9 @@
       "transportPayment": " + loan {payment}",
       "transportNoCar": "no car",
       "transportTransit": "transit pass {transit}",
-      "otherDesc": "Phone, clothing, kid activities, synagogue, streaming.",
+      "otherDesc": "Editable user-managed expenses, grouped by category.",
       "otherFormula": "phone 780 + clothing 1,500 + activities 1,440 + synagogue 1,500 + streaming 420 = {total}",
+      "customExpenseLine": "{name} ({category}): {amount}/yr",
       "assistanceDesc": "Money flowing back into the household.",
       "assistanceFormula": "SNAP {snap} + refundable credits {credits} + state EITC {stateEitc} = {total}",
       "snapIneligible": "SNAP not eligible at this income."
@@ -306,7 +394,39 @@
   },
   "cities": {
     "denver_co": "Denver, Colorado",
-    "providence_ri": "Providence, Rhode Island"
+    "providence_ri": "Providence, Rhode Island",
+    "poughkeepsie_ny": "Poughkeepsie, New York",
+    "new_york_ny": "New York, New York",
+    "teaneck_nj": "Teaneck, New Jersey",
+    "jersey_city_nj": "Jersey City, New Jersey",
+    "boston_ma": "Boston, Massachusetts",
+    "brookline_ma": "Brookline, Massachusetts",
+    "new_haven_ct": "New Haven, Connecticut",
+    "west_hartford_ct": "West Hartford, Connecticut",
+    "philadelphia_pa": "Philadelphia, Pennsylvania",
+    "pittsburgh_pa": "Pittsburgh, Pennsylvania",
+    "baltimore_md": "Baltimore, Maryland",
+    "silver_spring_md": "Silver Spring, Maryland",
+    "washington_dc": "Washington, DC",
+    "atlanta_ga": "Atlanta, Georgia",
+    "chicago_il": "Chicago, Illinois",
+    "skokie_il": "Skokie, Illinois",
+    "cleveland_oh": "Cleveland, Ohio",
+    "columbus_oh": "Columbus, Ohio",
+    "detroit_mi": "Detroit, Michigan",
+    "ann_arbor_mi": "Ann Arbor, Michigan",
+    "minneapolis_mn": "Minneapolis, Minnesota",
+    "st_louis_mo": "St. Louis, Missouri",
+    "dallas_tx": "Dallas, Texas",
+    "houston_tx": "Houston, Texas",
+    "austin_tx": "Austin, Texas",
+    "los_angeles_ca": "Los Angeles, California",
+    "san_diego_ca": "San Diego, California",
+    "san_francisco_ca": "San Francisco, California",
+    "seattle_wa": "Seattle, Washington",
+    "portland_or": "Portland, Oregon",
+    "phoenix_az": "Phoenix, Arizona",
+    "miami_fl": "Miami, Florida"
   },
   "jobs": {
     "local_newspaper": "Local newspaper / reporter",
@@ -318,6 +438,7 @@
     "denver_jds": "Denver Jewish Day School",
     "rmha": "Herzl / Rocky Mountain Hebrew Academy",
     "jcdsri": "Jewish Community Day School of RI",
-    "phds": "Providence Hebrew Day School"
+    "phds": "Providence Hebrew Day School",
+    "generic_jds": "Generic Jewish day school estimate"
   }
 }

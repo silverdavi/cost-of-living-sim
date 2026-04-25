@@ -107,14 +107,76 @@ export const schoolDataSchema = z.object({
 });
 export type SchoolData = z.infer<typeof schoolDataSchema>;
 
+// ----- Schema v2: dynamic children + custom expenses -----
+
+export const childPlacementSchema = z.enum([
+  "public",
+  "publicIEP",
+  "publicSpecial",
+  "privateDistrictFunded",
+  "privateSelfPay",
+  "jewishDay",
+  "jewishDayWithSupport",
+]);
+export type ChildPlacement = z.infer<typeof childPlacementSchema>;
+
+export const childSchema = z.object({
+  id: z.string(),
+  label: z.string().default(""),
+  age: z.number().min(0).max(22).default(7),
+  hasIEP: z.boolean().default(false),
+  hasMedicaidWaiver: z.boolean().default(false),
+  placement: childPlacementSchema.default("public"),
+  jewishSchoolSlug: z.string().default(""),
+  grantPct: z.number().min(0).max(1).default(0),
+  tuitionOverrideYearly: z.number().min(0).default(0),
+  therapyMonthly: z.number().min(0).default(0),
+});
+export type Child = z.infer<typeof childSchema>;
+
+export const expenseCategorySchema = z.enum([
+  "phone",
+  "internet",
+  "clothing",
+  "synagogue",
+  "activities",
+  "subscriptions",
+  "debt",
+  "childcare",
+  "pets",
+  "gifts",
+  "travel",
+  "savings",
+  "other",
+]);
+export type ExpenseCategory = z.infer<typeof expenseCategorySchema>;
+
+export const customExpenseSchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  category: expenseCategorySchema,
+  amountUsd: z.number().min(0),
+  frequency: z.enum(["monthly", "yearly", "oneTime"]),
+  enabled: z.boolean().default(true),
+  notes: z.string().default(""),
+});
+export type CustomExpense = z.infer<typeof customExpenseSchema>;
+
+export const defaultCustomExpenses: CustomExpense[] = [
+  { id: "exp_phone", label: "Phone (family plan)", category: "phone", amountUsd: 65, frequency: "monthly", enabled: true, notes: "" },
+  { id: "exp_internet", label: "Internet", category: "internet", amountUsd: 60, frequency: "monthly", enabled: true, notes: "" },
+  { id: "exp_clothing", label: "Clothing", category: "clothing", amountUsd: 1500, frequency: "yearly", enabled: true, notes: "" },
+  { id: "exp_activities", label: "Kids' activities", category: "activities", amountUsd: 120, frequency: "monthly", enabled: true, notes: "" },
+  { id: "exp_synagogue", label: "Synagogue dues", category: "synagogue", amountUsd: 1500, frequency: "yearly", enabled: true, notes: "" },
+  { id: "exp_streaming", label: "Streaming services", category: "subscriptions", amountUsd: 35, frequency: "monthly", enabled: true, notes: "" },
+];
+
 export const familyProfileSchema = z.object({
-  version: z.literal(1),
+  version: z.literal(2),
+  scenarioName: z.string().default("My family"),
   family: z.object({
-    kidAAge: z.number().min(5).max(10),
-    kidBAge: z.number().min(5).max(10),
-    kidBHasIEP: z.boolean(),
-    kidBHasMedicaidWaiver: z.boolean(),
-    foodMultiplier: z.number().min(0.8).max(2.5).default(1.3),
+    children: z.array(childSchema).max(8).default([]),
+    foodMultiplier: z.number().min(0.5).max(3.0).default(1.3),
   }),
   lifestyle: z.object({
     city: z.string(),
@@ -156,23 +218,11 @@ export const familyProfileSchema = z.object({
         ])
         .default("used_sedan"),
     }),
-    schools: z.object({
-      kidASchool: z.string(),
-      kidAGrantPct: z.number().min(0).max(1),
-      kidBPlacement: z.enum([
-        "publicIEP",
-        "publicSpecial",
-        "privateDistrictFunded",
-        "privateSelfPay",
-        "jewishDayWithSupport",
-      ]),
-      kidBTuitionYearlyUsd: z.number().min(0),
-      kidBTherapyMonthlyUsd: z.number().min(0),
-    }),
     health: z.object({
       strategy: z.enum(["employerFamily", "marketplace", "medicaid", "mixed"]),
       usage: z.enum(["low", "typical", "high"]),
     }),
+    customExpenses: z.array(customExpenseSchema).default([]),
   }),
 });
 export type FamilyProfile = z.infer<typeof familyProfileSchema>;
@@ -194,3 +244,90 @@ export const settingsSchema = z.object({
   }),
 });
 export type Settings = z.infer<typeof settingsSchema>;
+
+// ----- Migration from v1 to v2 -----
+
+interface V1Profile {
+  version: 1;
+  family: {
+    kidAAge: number;
+    kidBAge: number;
+    kidBHasIEP: boolean;
+    kidBHasMedicaidWaiver: boolean;
+    foodMultiplier: number;
+  };
+  lifestyle: {
+    city: string;
+    parentA: FamilyProfile["lifestyle"]["parentA"];
+    parentB: FamilyProfile["lifestyle"]["parentB"];
+    housing: FamilyProfile["lifestyle"]["housing"];
+    transport: FamilyProfile["lifestyle"]["transport"];
+    schools: {
+      kidASchool: string;
+      kidAGrantPct: number;
+      kidBPlacement:
+        | "publicIEP"
+        | "publicSpecial"
+        | "privateDistrictFunded"
+        | "privateSelfPay"
+        | "jewishDayWithSupport";
+      kidBTuitionYearlyUsd: number;
+      kidBTherapyMonthlyUsd: number;
+    };
+    health: FamilyProfile["lifestyle"]["health"];
+  };
+}
+
+export function migrateProfile(raw: unknown): unknown {
+  if (!raw || typeof raw !== "object") return raw;
+  const obj = raw as { version?: number };
+  if (obj.version === 2) return raw;
+  if (obj.version === 1) {
+    const v1 = raw as V1Profile;
+    const childA: Child = {
+      id: "kid_a",
+      label: "Kid A",
+      age: v1.family.kidAAge,
+      hasIEP: false,
+      hasMedicaidWaiver: false,
+      placement: "jewishDay",
+      jewishSchoolSlug: v1.lifestyle.schools.kidASchool,
+      grantPct: v1.lifestyle.schools.kidAGrantPct,
+      tuitionOverrideYearly: 0,
+      therapyMonthly: 0,
+    };
+    const childB: Child = {
+      id: "kid_b",
+      label: "Kid B",
+      age: v1.family.kidBAge,
+      hasIEP: v1.family.kidBHasIEP,
+      hasMedicaidWaiver: v1.family.kidBHasMedicaidWaiver,
+      placement: v1.lifestyle.schools.kidBPlacement,
+      jewishSchoolSlug:
+        v1.lifestyle.schools.kidBPlacement === "jewishDayWithSupport"
+          ? v1.lifestyle.schools.kidASchool
+          : "",
+      grantPct: 0,
+      tuitionOverrideYearly: v1.lifestyle.schools.kidBTuitionYearlyUsd,
+      therapyMonthly: v1.lifestyle.schools.kidBTherapyMonthlyUsd,
+    };
+    return {
+      version: 2,
+      scenarioName: "My family",
+      family: {
+        children: [childA, childB],
+        foodMultiplier: v1.family.foodMultiplier,
+      },
+      lifestyle: {
+        city: v1.lifestyle.city,
+        parentA: v1.lifestyle.parentA,
+        parentB: v1.lifestyle.parentB,
+        housing: v1.lifestyle.housing,
+        transport: v1.lifestyle.transport,
+        health: v1.lifestyle.health,
+        customExpenses: defaultCustomExpenses,
+      },
+    };
+  }
+  return raw;
+}

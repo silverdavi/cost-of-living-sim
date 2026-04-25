@@ -1,16 +1,20 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
+import { useLocale } from "next-intl";
 import { useSimStore } from "@/lib/store/useSimStore";
 import { useTranslations } from "next-intl";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { MoreHorizontal, Download, Upload, RotateCcw } from "lucide-react";
+import { MoreHorizontal, Download, Upload, RotateCcw, Link2, Printer } from "lucide-react";
 
 export function ProfileMenu() {
   const exportJson = useSimStore((s) => s.exportJson);
   const importJson = useSimStore((s) => s.importJson);
+  const exportShareHash = useSimStore((s) => s.exportShareHash);
   const reset = useSimStore((s) => s.reset);
   const t = useTranslations("actions");
+  const locale = useLocale();
   const fileRef = useRef<HTMLInputElement>(null);
 
   const onExport = () => {
@@ -19,9 +23,14 @@ export function ProfileMenu() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "family_profile.json";
+    a.download = "cost_simulator_state.json";
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  const onCopyShare = async () => {
+    const url = `${window.location.origin}${window.location.pathname}${exportShareHash()}`;
+    await navigator.clipboard.writeText(url);
   };
 
   const onImportClick = () => fileRef.current?.click();
@@ -49,7 +58,20 @@ export function ProfileMenu() {
           <MoreHorizontal className="h-4 w-4" />
         </button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-56 p-2">
+      <PopoverContent align="end" className="w-60 p-2">
+        <button
+          onClick={onCopyShare}
+          className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-surface"
+        >
+          <Link2 className="h-4 w-4" /> {t("copyShare")}
+        </button>
+        <Link
+          href={`/${locale}/report`}
+          className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-surface"
+        >
+          <Printer className="h-4 w-4" /> {t("printReport")}
+        </Link>
+        <div className="divider" />
         <button
           onClick={onExport}
           className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-surface"

@@ -1,10 +1,33 @@
 {
-  "version": 1,
+  "version": 2,
+  "scenarioName": "Morell baseline",
   "family": {
-    "kidAAge": 9,
-    "kidBAge": 6,
-    "kidBHasIEP": true,
-    "kidBHasMedicaidWaiver": false,
+    "children": [
+      {
+        "id": "kid_a",
+        "label": "Kid A",
+        "age": 9,
+        "hasIEP": false,
+        "hasMedicaidWaiver": false,
+        "placement": "jewishDay",
+        "jewishSchoolSlug": "denver_jds",
+        "grantPct": 0.55,
+        "tuitionOverrideYearly": 0,
+        "therapyMonthly": 0
+      },
+      {
+        "id": "kid_b",
+        "label": "Kid B",
+        "age": 6,
+        "hasIEP": true,
+        "hasMedicaidWaiver": false,
+        "placement": "publicIEP",
+        "jewishSchoolSlug": "",
+        "grantPct": 0,
+        "tuitionOverrideYearly": 0,
+        "therapyMonthly": 400
+      }
+    ],
     "foodMultiplier": 1.3
   },
   "lifestyle": {
@@ -33,16 +56,17 @@
       "usesTransit": false,
       "carType": "used_sedan"
     },
-    "schools": {
-      "kidASchool": "denver_jds",
-      "kidAGrantPct": 0.55,
-      "kidBPlacement": "publicIEP",
-      "kidBTuitionYearlyUsd": 0,
-      "kidBTherapyMonthlyUsd": 400
-    },
     "health": {
       "strategy": "marketplace",
       "usage": "typical"
-    }
+    },
+    "customExpenses": [
+      { "id": "exp_phone",     "label": "Phone (family plan)",  "category": "phone",         "amountUsd": 65,   "frequency": "monthly", "enabled": true, "notes": "" },
+      { "id": "exp_internet",  "label": "Internet",             "category": "internet",      "amountUsd": 60,   "frequency": "monthly", "enabled": true, "notes": "" },
+      { "id": "exp_clothing",  "label": "Clothing",             "category": "clothing",      "amountUsd": 1500, "frequency": "yearly",  "enabled": true, "notes": "" },
+      { "id": "exp_activities","label": "Kids' activities",     "category": "activities",    "amountUsd": 120,  "frequency": "monthly", "enabled": true, "notes": "" },
+      { "id": "exp_synagogue", "label": "Synagogue dues",       "category": "synagogue",     "amountUsd": 1500, "frequency": "yearly",  "enabled": true, "notes": "" },
+      { "id": "exp_streaming", "label": "Streaming services",   "category": "subscriptions", "amountUsd": 35,   "frequency": "monthly", "enabled": true, "notes": "" }
+    ]
   }
 }

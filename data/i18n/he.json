@@ -11,10 +11,15 @@
   "actions": {
     "export": "ייצוא פרופיל",
     "import": "ייבוא פרופיל",
+    "copyShare": "העתקת קישור שיתוף",
+    "printReport": "הדפסה / שמירה כ-PDF",
     "reset": "איפוס",
     "close": "סגירה",
     "save": "שמירה",
     "applySuggested": "השתמש בהצעה",
+    "duplicate": "שכפול",
+    "remove": "הסרה",
+    "copy": "עותק",
     "showMath": "הצג את החישוב",
     "hideMath": "הסתר את החישוב"
   },
@@ -27,6 +32,38 @@
     "manual": "ידני",
     "asOf": "נכון לתאריך {date}",
     "edit": "עריכת שער"
+  },
+  "scenarios": {
+    "active": "תרחיש פעיל",
+    "name": "שם התרחיש",
+    "untitled": "תרחיש ללא שם",
+    "save": "שמירת הנוכחי",
+    "new": "חדש",
+    "duplicate": "שכפול",
+    "mark": "סימון כערוך",
+    "delete": "מחיקת תרחיש"
+  },
+  "report": {
+    "title": "דוח להדפסה",
+    "subtitle": "סיכום מותאם להדפסה ולשמירה כ-PDF מהדפדפן.",
+    "print": "הדפסה / שמירה כ-PDF",
+    "scenario": "תרחיש",
+    "netYear": "נטו לשנה",
+    "monthly": "תזרים חודשי",
+    "household": "גודל משק בית",
+    "verdict": "מצב",
+    "yearlyTable": "סיכומים שנתיים",
+    "children": "ילדים ועלויות בית ספר/תמיכה"
+  },
+  "setupNav": {
+    "city": "עיר",
+    "housing": "דיור",
+    "income": "הכנסה",
+    "transport": "תחבורה",
+    "food": "מזון",
+    "kids": "ילדים",
+    "expenses": "הוצאות",
+    "health": "בריאות"
   },
   "locale": {
     "hebrew": "עברית",
@@ -47,6 +84,12 @@
     },
     "kids": {
       "title": "ילדים",
+      "subtitle": "הוספה, הסרה והגדרה של כל ילד/ה במשק הבית.",
+      "child": "ילד/ה",
+      "name": "שם הילד/ה",
+      "add": "הוספת ילד/ה",
+      "householdSize": "גודל משק בית: {count}",
+      "childNumber": "ילד/ה #{n}",
       "kidA": "הילד/ה הבכור/ה",
       "kidB": "הילד/ה הצעיר/ה",
       "olderTag": "ילד א׳",
@@ -55,7 +98,20 @@
       "kidBSubtitle": "עם קשיי למידה או קשיים אישיים.",
       "kidAFootnote": "בית הספר, אחוז המלגה ומסגרת צהרון נקבעים בלשונית אורח החיים.",
       "age": "גיל",
-      "ageHint": "בין 5 ל-10.",
+      "ageHint": "הגיל משפיע על אומדן מזון ועל שכבת בית הספר.",
+      "placement": "מסגרת לימודים / תמיכה",
+      "placementHint": "בחרו ציבורי, בית ספר יהודי, פרטי במימון עצמי או חינוך מיוחד במימון מחוז.",
+      "placements": {
+        "public": "בית ספר ציבורי",
+        "publicIEP": "בית ספר ציבורי עם IEP",
+        "publicSpecial": "תכנית חינוך מיוחד ציבורית",
+        "privateDistrictFunded": "חינוך מיוחד פרטי (במימון מחוז)",
+        "privateSelfPay": "בית ספר פרטי (מימון עצמי)",
+        "jewishDay": "בית ספר יהודי יומי",
+        "jewishDayWithSupport": "בית ספר יהודי + סיוע פרטי"
+      },
+      "hasIEP": "יש IEP / תכנית חינוך מיוחד",
+      "hasWaiver": "יש פטור מדיקאיד על רקע נכות",
       "kidBHasIEP": "לילד/ה הצעיר/ה יש תכנית חינוך אישית (IEP)",
       "iepHint": "IEP פותחת שירותי טיפול והתאמות במסגרת בית הספר.",
       "kidBHasWaiver": "לילד/ה הצעיר/ה יש פטור מדיקאיד על רקע נכות",
@@ -69,6 +125,35 @@
       "caption": "ברירת מחדל של כשרות בעיר ≈ ×{cityMult}. ×1.00 שווה בסיס USDA רגיל.",
       "resetCity": "השתמש בברירת המחדל של העיר",
       "resetPlain": "חזרה ל־×1.00"
+    }
+  },
+  "expenses": {
+    "title": "הוצאות מותאמות",
+    "subtitle": "הופכים את סל 'שונות' הישן לשורות הוצאה שאפשר לערוך.",
+    "add": "הוספת הוצאה",
+    "newExpense": "הוצאה חדשה",
+    "name": "שם ההוצאה",
+    "amount": "סכום",
+    "enabled": "פעיל",
+    "frequency": {
+      "monthly": "חודשי",
+      "yearly": "שנתי",
+      "oneTime": "חד־פעמי"
+    },
+    "categories": {
+      "phone": "טלפון",
+      "internet": "אינטרנט",
+      "clothing": "ביגוד",
+      "synagogue": "קהילה / בית כנסת",
+      "activities": "חוגים ופעילויות",
+      "subscriptions": "מנויים",
+      "debt": "החזרי חוב",
+      "childcare": "טיפול בילדים",
+      "pets": "חיות מחמד",
+      "gifts": "מתנות",
+      "travel": "נסיעות",
+      "savings": "קרן חירום",
+      "other": "שונות"
     }
   },
   "lifestyle": {
@@ -245,6 +330,7 @@
       "food": "מזון",
       "transport": "תחבורה",
       "other": "שונות",
+      "customExpenses": "הוצאות מותאמות",
       "assistance": "קצבאות וזיכויים",
       "surplus": "עודף",
       "deficit": "גירעון"
@@ -261,9 +347,10 @@
       "healthFormulaAca": "סל {benchmark} − PTC {ptc} + מהכיס {oop} = {total}",
       "healthFormulaMedicaid": "במדיקאיד — פרמיה $0. מהכיס {oop}.",
       "healthFormulaEmployer": "פרמיית מעסיק {premium} + מהכיס {oop} = {total}",
-      "schoolsDesc": "שכר לימוד של הבכור/ה פחות מלגה + אגרות + צהרון; הצעיר/ה שכ״ל + טיפולים.",
+      "schoolsDesc": "בית ספר, שכר לימוד, תמיכות וטיפולים עבור כל הילדים.",
       "kidALine": "ילד א׳: מחיר {sticker} × (1 − {grantPct}%) + אגרות {fees} + צהרון {aftercare} = {total}",
       "kidBLine": "ילד ב׳: שכ״ל {tuition} + טיפולים {therapy}/חודש × 12 = {total}",
+      "childLine": "{name}: שכ״ל {tuition} + אגרות {fees} + צהרון {aftercare} + טיפולים {therapy} = {total}",
       "foodDesc": "תכנית USDA ממוצעת × מכפיל כשרות (אם מופעל).",
       "foodFormula": "USDA {monthly}/חודש × 12{kosher} = {total}",
       "foodKosher": " × כשרות {mult}",
@@ -272,8 +359,9 @@
       "transportPayment": " + הלוואה {payment}",
       "transportNoCar": "אין רכב",
       "transportTransit": "חוזה תחבורה {transit}",
-      "otherDesc": "טלפון, ביגוד, חוגים, בית כנסת, סטרימינג.",
+      "otherDesc": "הוצאות שהמשתמש מנהל בעצמו, לפי קטגוריה.",
       "otherFormula": "טלפון 780 + ביגוד 1,500 + חוגים 1,440 + בית כנסת 1,500 + סטרימינג 420 = {total}",
+      "customExpenseLine": "{name} ({category}): {amount}/שנה",
       "assistanceDesc": "כסף שזורם בחזרה למשפחה.",
       "assistanceFormula": "SNAP {snap} + זיכויים מוחזרים {credits} + EITC מדינה {stateEitc} = {total}",
       "snapIneligible": "לא זכאים ל-SNAP ברמת ההכנסה הזו."
@@ -306,7 +394,39 @@
   },
   "cities": {
     "denver_co": "דנבר, קולורדו",
-    "providence_ri": "פרובידנס, רוד איילנד"
+    "providence_ri": "פרובידנס, רוד איילנד",
+    "poughkeepsie_ny": "פוקיפסי, ניו יורק",
+    "new_york_ny": "ניו יורק, ניו יורק",
+    "teaneck_nj": "טינק, ניו ג׳רזי",
+    "jersey_city_nj": "ג׳רזי סיטי, ניו ג׳רזי",
+    "boston_ma": "בוסטון, מסצ׳וסטס",
+    "brookline_ma": "ברוקליין, מסצ׳וסטס",
+    "new_haven_ct": "ניו הייבן, קונטיקט",
+    "west_hartford_ct": "ווסט הרטפורד, קונטיקט",
+    "philadelphia_pa": "פילדלפיה, פנסילבניה",
+    "pittsburgh_pa": "פיטסבורג, פנסילבניה",
+    "baltimore_md": "בולטימור, מרילנד",
+    "silver_spring_md": "סילבר ספרינג, מרילנד",
+    "washington_dc": "וושינגטון די.סי.",
+    "atlanta_ga": "אטלנטה, ג׳ורג׳יה",
+    "chicago_il": "שיקגו, אילינוי",
+    "skokie_il": "סקוקי, אילינוי",
+    "cleveland_oh": "קליבלנד, אוהיו",
+    "columbus_oh": "קולומבוס, אוהיו",
+    "detroit_mi": "דטרויט, מישיגן",
+    "ann_arbor_mi": "אן ארבור, מישיגן",
+    "minneapolis_mn": "מיניאפוליס, מינסוטה",
+    "st_louis_mo": "סנט לואיס, מיזורי",
+    "dallas_tx": "דאלאס, טקסס",
+    "houston_tx": "יוסטון, טקסס",
+    "austin_tx": "אוסטין, טקסס",
+    "los_angeles_ca": "לוס אנג׳לס, קליפורניה",
+    "san_diego_ca": "סן דייגו, קליפורניה",
+    "san_francisco_ca": "סן פרנסיסקו, קליפורניה",
+    "seattle_wa": "סיאטל, וושינגטון",
+    "portland_or": "פורטלנד, אורגון",
+    "phoenix_az": "פיניקס, אריזונה",
+    "miami_fl": "מיאמי, פלורידה"
   },
   "jobs": {
     "local_newspaper": "עיתונאי/ת מקומי/ת",
@@ -318,6 +438,7 @@
     "denver_jds": "בית ספר יהודי יומי — דנבר",
     "rmha": "הרצל / האקדמיה העברית של הרי הרוקי",
     "jcdsri": "בית הספר היהודי הקהילתי של ר״א",
-    "phds": "בית הספר היהודי היומי של פרובידנס"
+    "phds": "בית הספר היהודי היומי של פרובידנס",
+    "generic_jds": "אומדן כללי לבית ספר יהודי יומי"
   }
 }

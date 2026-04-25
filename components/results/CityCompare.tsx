@@ -22,13 +22,14 @@ export function CityCompare() {
         lifestyle: {
           ...profile.lifestyle,
           city: city.slug,
-          schools: {
-            ...profile.lifestyle.schools,
-            kidASchool:
-              city.schools.includes(profile.lifestyle.schools.kidASchool)
-                ? profile.lifestyle.schools.kidASchool
-                : (schools[0]?.slug ?? profile.lifestyle.schools.kidASchool),
-          },
+        },
+        family: {
+          ...profile.family,
+          children: profile.family.children.map((child) =>
+            child.jewishSchoolSlug && !city.schools.includes(child.jewishSchoolSlug)
+              ? { ...child, jewishSchoolSlug: schools[0]?.slug ?? "" }
+              : child
+          ),
         },
       };
       const agg = runSimulation(adjusted, assumptions);

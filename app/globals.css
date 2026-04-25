@@ -72,3 +72,32 @@ html[dir="rtl"] body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+@media print {
+  header,
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: white !important;
+  }
+
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .card,
+  .card-strong {
+    break-inside: avoid;
+    box-shadow: none !important;
+    background: white !important;
+  }
+
+  .report {
+    color: #111;
+    font-size: 12pt;
+  }
+}

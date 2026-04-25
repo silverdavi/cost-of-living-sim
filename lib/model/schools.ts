@@ -1,4 +1,4 @@
-import type { SchoolData } from "./schema";
+import type { Child, ChildPlacement, SchoolData } from "./schema";
 
 export function suggestedGrantPct(school: SchoolData, magi: number): number {
   for (const band of school.typicalGrantBands) {
@@ -18,49 +18,85 @@ export function stickerForAge(school: SchoolData, age: number): number {
   return table[fallbackKeys[fallbackKeys.length - 1]];
 }
 
-export interface KidACost {
+export interface ChildCost {
+  childId: string;
+  label: string;
+  placement: ChildPlacement;
+  schoolName: string;
   sticker: number;
   grantPct: number;
   netTuition: number;
   fees: number;
   aftercareYearly: number;
+  therapyYearly: number;
   total: number;
 }
 
-export function computeKidACost(school: SchoolData, age: number, grantPct: number): KidACost {
-  const sticker = stickerForAge(school, age);
-  const netTuition = sticker * (1 - grantPct);
-  const fees = school.feesExtraYearly;
-  const aftercareYearly = school.aftercareMonthly * 10;
-  return {
-    sticker,
-    grantPct,
-    netTuition,
-    fees,
-    aftercareYearly,
-    total: netTuition + fees + aftercareYearly,
-  };
-}
+const PLACEMENTS_NO_TUITION = new Set<ChildPlacement>([
+  "public",
+  "publicIEP",
+  "publicSpecial",
+  "privateDistrictFunded",
+]);
 
-export interface KidBCost {
-  tuition: number;
-  therapy: number;
-  total: number;
-}
+export function computeChildCost(
+  child: Child,
+  jewishSchool: SchoolData | null
+): ChildCost {
+  const usesJewishSchool =
+    (child.placement === "jewishDay" || child.placement === "jewishDayWithSupport") &&
+    jewishSchool !== null;
+  const therapyYearly = (child.therapyMonthly || 0) * 12;
 
-export function computeKidBCost(placement: string, tuitionYearly: number, therapyMonthly: number): KidBCost {
-  let tuition = 0;
-  switch (placement) {
-    case "publicIEP":
-    case "publicSpecial":
-    case "privateDistrictFunded":
-      tuition = 0;
-      break;
-    case "privateSelfPay":
-    case "jewishDayWithSupport":
-      tuition = tuitionYearly;
-      break;
+  if (usesJewishSchool && jewishSchool) {
+    const sticker = stickerForAge(jewishSchool, child.age);
+    const netTuition = Math.max(0, sticker * (1 - child.grantPct));
+    const fees = jewishSchool.feesExtraYearly;
+    const aftercareYearly = jewishSchool.aftercareMonthly * 10;
+    return {
+      childId: child.id,
+      label: child.label || child.id,
+      placement: child.placement,
+      schoolName: jewishSchool.labelKey,
+      sticker,
+      grantPct: child.grantPct,
+      netTuition,
+      fees,
+      aftercareYearly,
+      therapyYearly,
+      total: netTuition + fees + aftercareYearly + therapyYearly,
+    };
   }
-  const therapy = therapyMonthly * 12;
-  return { tuition, therapy, total: tuition + therapy };
+
+  if (PLACEMENTS_NO_TUITION.has(child.placement)) {
+    return {
+      childId: child.id,
+      label: child.label || child.id,
+      placement: child.placement,
+      schoolName: "",
+      sticker: 0,
+      grantPct: 0,
+      netTuition: 0,
+      fees: 0,
+      aftercareYearly: 0,
+      therapyYearly,
+      total: therapyYearly,
+    };
+  }
+
+  // privateSelfPay
+  const tuition = child.tuitionOverrideYearly;
+  return {
+    childId: child.id,
+    label: child.label || child.id,
+    placement: child.placement,
+    schoolName: "",
+    sticker: tuition,
+    grantPct: 0,
+    netTuition: tuition,
+    fees: 0,
+    aftercareYearly: 0,
+    therapyYearly,
+    total: tuition + therapyYearly,
+  };
 }

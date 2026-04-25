@@ -100,6 +100,9 @@ export function computeTaxes(opts: {
     );
     stateIncomeTax = applyBrackets(stateTaxable, c.brackets);
     stateEitc = Math.round(eitc * c.stateEitcMultiplier);
+  } else if (stateSlug !== "texas" && stateSlug !== "florida" && stateSlug !== "washington") {
+    // Ballpark fallback for newly seeded cities until state-specific brackets are added.
+    stateIncomeTax = Math.max(0, magi - federal.standardDeductionMFJ) * 0.045;
   }
 
   const totalTax = federalIncomeTax + fica + stateIncomeTax + localTax;

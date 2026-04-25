@@ -101,22 +101,18 @@ export function ExpenseBreakdownList({ agg }: { agg: Aggregate }) {
       {
         key: "schools",
         label: t("results.breakdown.schools"),
-        amount: agg.kidA.total + agg.kidB.total,
+        amount: agg.childrenTotal,
         desc: t("results.explain.schoolsDesc"),
-        lines: [
-          t("results.explain.kidALine", {
-            sticker: money(agg.kidA.sticker),
-            grantPct: Math.round(agg.kidA.grantPct * 100),
-            fees: money(agg.kidA.fees),
-            aftercare: money(agg.kidA.aftercareYearly),
-            total: money(agg.kidA.total),
-          }),
-          t("results.explain.kidBLine", {
-            tuition: money(agg.kidB.tuition),
-            therapy: money(agg.kidB.therapy / 12),
-            total: money(agg.kidB.total),
-          }),
-        ],
+        lines: agg.children.map((child) =>
+          t("results.explain.childLine", {
+            name: child.label,
+            tuition: money(child.netTuition),
+            fees: money(child.fees),
+            aftercare: money(child.aftercareYearly),
+            therapy: money(child.therapyYearly),
+            total: money(child.total),
+          })
+        ),
       },
       {
         key: "food",
@@ -167,12 +163,16 @@ export function ExpenseBreakdownList({ agg }: { agg: Aggregate }) {
       },
       {
         key: "other",
-        label: t("results.breakdown.other"),
-        amount: agg.otherYearly,
+        label: t("results.breakdown.customExpenses"),
+        amount: agg.customExpenses.totalYearly,
         desc: t("results.explain.otherDesc"),
-        lines: [
-          t("results.explain.otherFormula", { total: money(agg.otherYearly) }),
-        ],
+        lines: agg.customExpenses.enabledItems.map((expense) =>
+          t("results.explain.customExpenseLine", {
+            name: expense.label,
+            category: t(`expenses.categories.${expense.category}`),
+            amount: money(expense.yearly),
+          })
+        ),
       },
       {
         key: "assistance",

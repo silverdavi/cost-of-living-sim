@@ -25,11 +25,11 @@ export function YearlyBreakdown({ agg }: { agg: Aggregate }) {
   const data = [
     { key: "taxes", usd: agg.taxes.totalTax, label: t("taxes") },
     { key: "housing", usd: agg.housing.total, label: t("housing") },
-    { key: "schools", usd: agg.kidA.total + agg.kidB.total, label: t("schools") },
+    { key: "schools", usd: agg.childrenTotal, label: t("schools") },
     { key: "health", usd: agg.aca.netPremiumYearly + agg.oopMedicalYearly, label: t("health") },
     { key: "food", usd: agg.foodYearly, label: t("food") },
     { key: "transport", usd: agg.transport.total, label: t("transport") },
-    { key: "other", usd: agg.otherYearly, label: t("other") },
+    { key: "other", usd: agg.customExpenses.totalYearly, label: t("customExpenses") },
   ].map((d) => ({ ...d, display: convertFromUsd(d.usd, currency, rate) }));
 
   return (

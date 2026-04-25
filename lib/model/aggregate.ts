@@ -3,17 +3,18 @@ import { computeIncome, computeMagi, type IncomeBreakdown } from "./income";
 import { computeTaxes, type TaxBreakdown } from "./taxes";
 import { computeAca, expectedOopMedicalYearly, type AcaResult } from "./aca";
 import { computeSnap, type SnapResult } from "./snap";
-import { computeKidACost, computeKidBCost, type KidACost, type KidBCost } from "./schools";
+import { computeChildCost, type ChildCost } from "./schools";
 import {
   computeHousing,
   computeFoodYearly,
   computeTransport,
-  computeOtherYearly,
+  computeCustomExpenses,
   type HousingCost,
   type TransportCost,
+  type CustomExpensesBreakdown,
 } from "./expenses";
 import { federal } from "../data/loaders";
-import type { FamilyProfile } from "./schema";
+import type { FamilyProfile, SchoolData } from "./schema";
 
 export interface Assumptions {
   acaExtended: boolean;
@@ -30,9 +31,9 @@ export interface Aggregate {
   housing: HousingCost;
   foodYearly: number;
   transport: TransportCost;
-  otherYearly: number;
-  kidA: KidACost;
-  kidB: KidBCost;
+  customExpenses: CustomExpensesBreakdown;
+  children: ChildCost[];
+  childrenTotal: number;
   aca: AcaResult;
   oopMedicalYearly: number;
   snap: SnapResult;
@@ -42,11 +43,22 @@ export interface Aggregate {
   monthlyCashflow: number;
   effectiveMarginalRate: number;
   feasibility: Feasibility;
+  householdSize: number;
+}
+
+function safeGetSchool(slug: string): SchoolData | null {
+  if (!slug) return null;
+  try {
+    return getSchool(slug);
+  } catch {
+    return null;
+  }
 }
 
 export function runSimulation(profile: FamilyProfile, assumptions: Assumptions): Aggregate {
   const city = getCity(profile.lifestyle.city);
-  const household = 2 + 2;
+  const numKids = profile.family.children.length;
+  const household = 2 + numKids;
 
   const income = computeIncome(profile, federal.ssdi.sgaMonthlyNonBlind);
   const magi = computeMagi(income);
@@ -63,27 +75,25 @@ export function runSimulation(profile: FamilyProfile, assumptions: Assumptions):
     magi,
     earnedIncome: income.earnedTotal,
     stateSlug: city.state,
-    numKids: 2,
+    numKids,
     numEarningAdults,
     householdSize: household,
   });
 
   const housing = computeHousing(city, profile);
-  const foodYearly = computeFoodYearly(city, profile.family.foodMultiplier);
+  const foodYearly = computeFoodYearly(city, profile.family.foodMultiplier, household);
   const transport = computeTransport(city, {
     hasCar: profile.lifestyle.transport.hasCar,
     usesTransit: profile.lifestyle.transport.usesTransit,
     carType: profile.lifestyle.transport.carType,
   });
-  const otherYearly = computeOtherYearly();
+  const customExpenses = computeCustomExpenses(profile.lifestyle.customExpenses ?? []);
 
-  const kidASchool = getSchool(profile.lifestyle.schools.kidASchool);
-  const kidA = computeKidACost(kidASchool, profile.family.kidAAge, profile.lifestyle.schools.kidAGrantPct);
-  const kidB = computeKidBCost(
-    profile.lifestyle.schools.kidBPlacement,
-    profile.lifestyle.schools.kidBTuitionYearlyUsd,
-    profile.lifestyle.schools.kidBTherapyMonthlyUsd
-  );
+  const children: ChildCost[] = profile.family.children.map((child) => {
+    const school = safeGetSchool(child.jewishSchoolSlug);
+    return computeChildCost(child, school);
+  });
+  const childrenTotal = children.reduce((sum, c) => sum + c.total, 0);
 
   const aca = computeAca({
     magi,
@@ -115,9 +125,8 @@ export function runSimulation(profile: FamilyProfile, assumptions: Assumptions):
     housing.total +
     foodYearly +
     transport.total +
-    otherYearly +
-    kidA.total +
-    kidB.total +
+    customExpenses.totalYearly +
+    childrenTotal +
     aca.netPremiumYearly +
     oopMedicalYearly;
 
@@ -143,9 +152,9 @@ export function runSimulation(profile: FamilyProfile, assumptions: Assumptions):
     housing,
     foodYearly,
     transport,
-    otherYearly,
-    kidA,
-    kidB,
+    customExpenses,
+    children,
+    childrenTotal,
     aca,
     oopMedicalYearly,
     snap,
@@ -155,6 +164,7 @@ export function runSimulation(profile: FamilyProfile, assumptions: Assumptions):
     monthlyCashflow,
     effectiveMarginalRate,
     feasibility,
+    householdSize: household,
   };
 }
 
@@ -177,7 +187,8 @@ function computeMarginalRate(profile: FamilyProfile, assumptions: Assumptions): 
 
 function runSimulationCore(profile: FamilyProfile, assumptions: Assumptions): number {
   const city = getCity(profile.lifestyle.city);
-  const household = 4;
+  const numKids = profile.family.children.length;
+  const household = 2 + numKids;
   const income = computeIncome(profile, federal.ssdi.sgaMonthlyNonBlind);
   const magi = computeMagi(income);
   const numEarningAdults = (profile.lifestyle.parentA.employed ? 1 : 0) +
@@ -186,7 +197,7 @@ function runSimulationCore(profile: FamilyProfile, assumptions: Assumptions): nu
     magi,
     earnedIncome: income.earnedTotal,
     stateSlug: city.state,
-    numKids: 2,
+    numKids,
     numEarningAdults,
     householdSize: household,
   });

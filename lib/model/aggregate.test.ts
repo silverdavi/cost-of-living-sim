@@ -107,14 +107,62 @@ describe("runSimulation on default profile", () => {
   it("Providence default profile also runs", () => {
     const riProfile = {
       ...profile,
+      family: {
+        ...profile.family,
+        children: profile.family.children.map((child) =>
+          child.jewishSchoolSlug ? { ...child, jewishSchoolSlug: "jcdsri" } : child
+        ),
+      },
       lifestyle: {
         ...profile.lifestyle,
         city: "providence_ri",
-        schools: { ...profile.lifestyle.schools, kidASchool: "jcdsri" },
       },
     };
     const r = runSimulation(riProfile, baseAssumptions);
     expect(r).toBeDefined();
     expect(r.totalExpensesYearly).toBeGreaterThan(0);
+  });
+
+  it("uses dynamic children and custom expenses", () => {
+    const baseline = runSimulation(profile, baseAssumptions);
+    const expanded = {
+      ...profile,
+      family: {
+        ...profile.family,
+        children: [
+          ...profile.family.children,
+          {
+            id: "kid_c",
+            label: "Kid C",
+            age: 3,
+            hasIEP: false,
+            hasMedicaidWaiver: false,
+            placement: "public" as const,
+            jewishSchoolSlug: "",
+            grantPct: 0,
+            tuitionOverrideYearly: 0,
+            therapyMonthly: 0,
+          },
+        ],
+      },
+      lifestyle: {
+        ...profile.lifestyle,
+        customExpenses: [
+          ...profile.lifestyle.customExpenses,
+          {
+            id: "exp_test",
+            label: "Test expense",
+            category: "other" as const,
+            amountUsd: 100,
+            frequency: "monthly" as const,
+            enabled: true,
+            notes: "",
+          },
+        ],
+      },
+    };
+    const r = runSimulation(expanded, baseAssumptions);
+    expect(r.householdSize).toBe(baseline.householdSize + 1);
+    expect(r.customExpenses.totalYearly).toBe(baseline.customExpenses.totalYearly + 1200);
   });
 });
